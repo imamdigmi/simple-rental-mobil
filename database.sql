@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 11, 2017 at 11:41 PM
+-- Generation Time: Jan 12, 2017 at 02:57 AM
 -- Server version: 5.7.16-0ubuntu0.16.10.1
 -- PHP Version: 7.0.13-0ubuntu0.16.10.1
 
@@ -87,8 +87,15 @@ INSERT INTO `jenis` (`id_jenis`, `nama`) VALUES
 CREATE TABLE `konfirmasi` (
   `id_konfirmasi` int(11) NOT NULL,
   `id_transaksi` int(11) NOT NULL,
-  `status` enum('0','1') NOT NULL
+  `bukti` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `konfirmasi`
+--
+
+INSERT INTO `konfirmasi` (`id_konfirmasi`, `id_transaksi`, `bukti`) VALUES
+(2, 13, '212012017024823.png');
 
 -- --------------------------------------------------------
 
@@ -106,6 +113,14 @@ CREATE TABLE `mobil` (
   `harga` int(7) NOT NULL,
   `status` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mobil`
+--
+
+INSERT INTO `mobil` (`id_mobil`, `id_jenis`, `no_mobil`, `merk`, `nama_mobil`, `gambar`, `harga`, `status`) VALUES
+(3, 4, 'AB 1817 XY', 'Toyota', 'BMW FX 1', '11012017235401.png', 20000, '0'),
+(4, 5, 'AB 1817 XY', 'Toyota', 'BMW FX 1', '12012017000453.png', 20000, '0');
 
 -- --------------------------------------------------------
 
@@ -145,6 +160,13 @@ CREATE TABLE `supir` (
   `status` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `supir`
+--
+
+INSERT INTO `supir` (`id_supir`, `nama`, `telp`, `alamat`, `status`) VALUES
+(2, 'imam', '08970008875', 'jogja', '0');
+
 -- --------------------------------------------------------
 
 --
@@ -155,13 +177,22 @@ CREATE TABLE `transaksi` (
   `id_transaksi` int(11) NOT NULL,
   `id_pelanggan` int(11) NOT NULL,
   `tgl_sewa` datetime NOT NULL,
-  `tgl_kembali` datetime NOT NULL,
-  `total_har` int(7) NOT NULL,
+  `tgl_kembali` datetime DEFAULT NULL,
+  `lama` tinyint(1) NOT NULL,
+  `total_harga` int(7) NOT NULL,
   `status` enum('0','1') NOT NULL,
   `jaminan` varchar(30) NOT NULL,
   `denda` int(7) DEFAULT NULL,
-  `jatuh_tempo` datetime NOT NULL
+  `jatuh_tempo` datetime NOT NULL,
+  `konfirmasi` enum('0','1') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `id_pelanggan`, `tgl_sewa`, `tgl_kembali`, `lama`, `total_harga`, `status`, `jaminan`, `denda`, `jatuh_tempo`, `konfirmasi`) VALUES
+(13, 2, '2017-01-12 02:12:03', NULL, 1, 50000, '0', 'STNK', NULL, '2017-01-13 02:12:03', '1');
 
 --
 -- Indexes for dumped tables
@@ -234,7 +265,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `jenis`
 --
@@ -244,12 +275,12 @@ ALTER TABLE `jenis`
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `mobil`
 --
 ALTER TABLE `mobil`
-  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
@@ -259,12 +290,12 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `supir`
 --
 ALTER TABLE `supir`
-  MODIFY `id_supir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_supir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- Constraints for dumped tables
 --

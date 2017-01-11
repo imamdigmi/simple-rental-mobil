@@ -8,8 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             while ($data = $query->fetch_array()) {
                 $_SESSION["is_logged"] = true;
                 $_SESSION["is_pelanggan"] = true;
-                $_SESSION["id"] = $row["id_pelanggan"];
+                $_SESSION["id_pelanggan"] = $data["id_pelanggan"];
                 $_SESSION["username"] = $data["username"];
+                $_SESSION["nama"] = $data["nama"];
+                $_SESSION["no_ktp"] = $data["no_ktp"];
+                $_SESSION["no_telp"] = $data["no_telp"];
+                $_SESSION["email"] = $data["email"];
+                $_SESSION["alamat"] = $data["alamat"];
               }
             header('location: index.php');
         } else {

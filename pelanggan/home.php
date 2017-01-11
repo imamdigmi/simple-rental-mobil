@@ -13,8 +13,9 @@
 		        <h4><?=$row["nama_mobil"]?></h4>
 		        <h5>Rp.<?=$row["harga"]?>,-</h5>
 						<span class="label label-<?=($row['status']) ? "success" : "danger" ?>"><?=($row['status']) ? "Tersedia" : "Tidak Tersedia" ?></span>
-		        <p><br>
-							<a href="#" class="btn btn-primary">Sewa Sekarang!</a>
+		        <p>
+							<br>
+							<a href="?page=transaksi&id=<?=$row["id_mobil"]?>" class="btn btn-primary" <?=($row['status']) ?: "disabled" ?>>Sewa Sekarang!</a>
 						</p>
 		      </div>
 		    </div>

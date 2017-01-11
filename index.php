@@ -36,13 +36,7 @@ require_once "config.php";
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="?page=home">Beranda <span class="sr-only">(current)</span></a></li>
                         <?php if (isset($_SESSION["is_logged"]) AND isset($_SESSION["is_pelanggan"])): ?>
-                          <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Laporan <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="?page=sewa">Data Sewa</a></li>
-                              <li><a href="?page=konfirmasi">Konfirmasi</a></li>
-                            </ul>
-                          </li>
+                          <li><a href="?page=profil">Profil</a></li>
                           <li><a href="logout.php">Logout</a></li>
                           <li><a href="#">|</a></li>
                           <li><a href="#" style="font-weight: bold; color: red;"><?= ucfirst($_SESSION["username"]) ?></a></li>

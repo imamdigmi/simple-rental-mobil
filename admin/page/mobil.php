@@ -12,11 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if ($file) {
 			$x = explode('.', $_FILES['gambar']['name']);
 			$file_name = date("dmYHis").".".strtolower(end($x));
-			if (! move_uploaded_file($_FILES['gambar']['tmp_name'], "../assets/img/".$file_name)) {
+			if (! move_uploaded_file($_FILES['gambar']['tmp_name'], "../assets/img/mobil/".$file_name)) {
 				echo alert("Upload File Gagal!", "?page=mobil");
 				$err = true;
 			}
-			@unlink("../assets/img/".$row["gambar"]);
+			@unlink("../assets/img/mobil/".$row["gambar"]);
 		} else {
 			$file_name = $row["gambar"];
 		}
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 		$x = explode('.', $_FILES['gambar']['name']);
 		$file_name = date("dmYHis").".".strtolower(end($x));
-		if (! move_uploaded_file($_FILES['gambar']['tmp_name'], "../assets/img/".$file_name)) {
+		if (! move_uploaded_file($_FILES['gambar']['tmp_name'], "../assets/img/mobil/".$file_name)) {
 			echo alert("Upload File Gagal!", "?page=mobil");
 			$err = true;
 		}
@@ -138,7 +138,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 															<td><span class="label label-<?=($row['status']) ? "success" : "danger" ?>"><?=($row['status']) ? "Tersedia" : "Tidak Tersedia" ?></span></td>
 	                            <td>
 	                                <div class="btn-group">
-	                                    <a href="../assets/img/<?=$row['gambar']?>" class="btn btn-info btn-xs fancybox">Lihat</a>
+	                                    <a href="../assets/img/mobil/<?=$row['gambar']?>" class="btn btn-info btn-xs fancybox">Lihat</a>
 	                                    <a href="?page=mobil&action=update&key=<?=$row['id_mobil']?>" class="btn btn-warning btn-xs">Edit</a>
 	                                    <a href="?page=mobil&action=delete&key=<?=$row['id_mobil']?>" class="btn btn-danger btn-xs">Hapus</a>
 	                                </div>

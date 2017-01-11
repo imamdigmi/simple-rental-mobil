@@ -15,7 +15,7 @@
 						<span class="label label-<?=($row['status']) ? "success" : "danger" ?>"><?=($row['status']) ? "Tersedia" : "Tidak Tersedia" ?></span>
 		        <p>
 							<br>
-							<a href="<?=($row['status']) ? "?page=transaksi&id=$row['id_mobil']" : "#" ?>" class="btn btn-primary" <?=($row['status']) ?: "disabled" ?>>Sewa Sekarang!</a>
+							<a href="<?=($row['status']) ? "?page=transaksi&id=$row[id_mobil]" : "#" ?>" class="btn btn-primary" <?=($row['status']) ?: "disabled" ?>>Sewa Sekarang!</a>
 						</p>
 		      </div>
 		    </div>

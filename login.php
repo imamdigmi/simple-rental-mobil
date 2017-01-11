@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             session_start();
             while ($data = $query->fetch_array()) {
                 $_SESSION["is_logged"] = true;
+                $_SESSION["is_pelanggan"] = true;
                 $_SESSION["id"] = $row["id_pelanggan"];
                 $_SESSION["username"] = $data["username"];
               }

@@ -35,7 +35,7 @@ require_once "config.php";
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="?page=home">Beranda <span class="sr-only">(current)</span></a></li>
-                        <?php if (isset($_SESSION["is_logged"])): ?>
+                        <?php if (isset($_SESSION["is_logged"]) AND isset($_SESSION["is_pelanggan"])): ?>
                           <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Laporan <span class="caret"></span></a>
                             <ul class="dropdown-menu">

@@ -1,6 +1,6 @@
 <?php
 
-$update = ((isset($_GET['action']) AND $_GET['action'] == 'update') OR isset($_SESSION["is_logged"])) ? true : false;
+$update = ((isset($_GET['action']) AND $_GET['action'] == 'update') OR isset($_SESSION["is_pelanggan"])) ? true : false;
 if ($update) {
 	$sql = $connection->query("SELECT * FROM pelanggan WHERE id_pelanggan='$_SESSION[id]'");
 	$row = $sql->fetch_assoc();
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$sql = "INSERT INTO pelanggan VALUES (NULL, '$_POST[no_ktp]', '$_POST[nama]', '$_POST[email]', '$_POST[no_telp]', '$_POST[alamat]', '$_POST[username]', '".md5($_POST["password"])."')";
 	}
   if ($connection->query($sql)) {
-    echo alert("Berhasil! Silahkan login", "?page=home");
+    echo alert("Berhasil! Silahkan login", "login.php");
   } else {
 		echo alert("Gagal!", "?page=pelanggan");
   }

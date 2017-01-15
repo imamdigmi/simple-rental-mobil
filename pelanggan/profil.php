@@ -1,10 +1,17 @@
+<?php
+
+if (!isset($_SESSION["pelanggan"])) {
+  header('location: login.php');
+}
+
+?>
 <div class="row">
   <div class="col-md-4">
     <div class="panel panel-info">
         <div class="panel-heading"><h3 class="text-center">Profil</h3></div>
         <div class="panel-body">
-            <?php if (isset($_SESSION['is_pelanggan'])): ?>
-                <?php if ($query = $connection->query("SELECT * FROM pelanggan WHERE id_pelanggan=$_SESSION[id_pelanggan]")): ?>
+            <?php if (isset($_SESSION["pelanggan"])): ?>
+                <?php $id = $_SESSION["pelanggan"]["id"]; if ($query = $connection->query("SELECT * FROM pelanggan WHERE id_pelanggan=$id")): ?>
                     <?php while ($data = $query->fetch_assoc()): ?>
                         <form>
                             <div class="form-group">
@@ -39,7 +46,7 @@
     <div class="panel panel-info">
       <div class="panel-heading"><h3 class="text-center">Riwayat Sewa</h3></div>
       <div class="panel-body">
-        <?php if ($query = $connection->query("SELECT * FROM transaksi WHERE id_pelanggan=$_SESSION[id_pelanggan]")): ?>
+        <?php if ($query = $connection->query("SELECT * FROM transaksi WHERE id_pelanggan=$id")): ?>
             <?php $no = 1; ?>
             <table class="table table-hover">
                 <thead>

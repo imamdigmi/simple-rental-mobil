@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "../config.php";
-if (!isset($_SESSION["is_logged"])) {
+if (!isset($_SESSION["admin"])) {
   header('location: login.php');
 }
 ?>
@@ -38,30 +38,28 @@ if (!isset($_SESSION["is_logged"])) {
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="?page=home">Beranda <span class="sr-only">(current)</span></a></li>
-                        <?php if (isset($_SESSION["is_logged"])): ?>
-                          <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Input <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="?page=admin">Admin</a></li>
-                              <li><a href="?page=jenis">Jenis</a></li>
-                              <li><a href="?page=mobil">Mobil</a></li>
-                              <li><a href="?page=supir">Supir</a></li>
-                            </ul>
-                          </li>
-                          <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Laporan <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="?page=konfirmasi_perperiode">Konfirmasi Perperiode</a></li>
-                              <li><a href="?page=permobil">Penyewaan Permobil</a></li>
-                              <li><a href="?page=penyewaan_perperiode">Penyewaan Perperiode</a></li>
-                              <li><a href="?page=terlaris">Terlaris</a></li>
-                              <li><a href="?page=denda">Denda</a></li>
-                            </ul>
-                          </li>
-                          <li><a href="logout.php">Logout</a></li>
-                          <li><a href="#">|</a></li>
-                          <li><a href="#" style="font-weight: bold; color: red;"><?= ucfirst($_SESSION["username"]) ?></a></li>
-                        <?php endif; ?>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Input <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="?page=admin">Admin</a></li>
+                            <li><a href="?page=jenis">Jenis</a></li>
+                            <li><a href="?page=mobil">Mobil</a></li>
+                            <li><a href="?page=supir">Supir</a></li>
+                          </ul>
+                        </li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Laporan <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="?page=lap_konfirmasi">Konfirmasi</a></li>
+                            <li><a href="?page=lap_permobil">Penyewaan Permobil</a></li>
+                            <li><a href="?page=lap_perperiode">Penyewaan Perperiode</a></li>
+                            <li><a href="?page=lap_terlaris">Terlaris</a></li>
+                            <li><a href="?page=lap_denda">Denda</a></li>
+                          </ul>
+                        </li>
+                        <li><a href="logout.php">Logout</a></li>
+                        <li><a href="#">|</a></li>
+                        <li><a href="#" style="font-weight: bold; color: red;"><?= ucfirst($_SESSION["admin"]["username"]) ?></a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

@@ -35,11 +35,11 @@ require_once "config.php";
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="?page=home">Beranda <span class="sr-only">(current)</span></a></li>
-                        <?php if (isset($_SESSION["is_logged"]) AND isset($_SESSION["is_pelanggan"])): ?>
+                        <?php if (isset($_SESSION["pelanggan"])): ?>
                           <li><a href="?page=profil">Profil</a></li>
                           <li><a href="logout.php">Logout</a></li>
                           <li><a href="#">|</a></li>
-                          <li><a href="#" style="font-weight: bold; color: red;"><?= ucfirst($_SESSION["username"]) ?></a></li>
+                          <li><a href="#" style="font-weight: bold; color: red;"><?= ucfirst($_SESSION["pelanggan"]["username"]) ?></a></li>
                         <?php else: ?>
                           <li><a href="?page=daftar">Daftar</a></li>
                           <li><a href="login.php">Login</a></li>

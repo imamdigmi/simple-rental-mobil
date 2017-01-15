@@ -1,21 +1,31 @@
 <?php
-$query = $connection->query("SELECT * FROM mobil WHERE id_mobil=$_POST[id_mobil]");
-$data = $query->fetch_assoc();
 
+if (!isset($_SESSION["pelanggan"])) {
+  header('location: login.php');
+}
+
+$query = $connection->query("SELECT * FROM mobil WHERE id_mobil=$_POST[id_mobil]");
+$data  = $query->fetch_assoc();
+
+$hargasupir = 0;
 $totalbayar = ((!$_POST["status"]) ? "" : (30000 * $_POST["lama"])) + ($data["harga"] * $_POST["lama"]);
 $jatuhtempo = date('Y-m-d H:i:s', strtotime('+'.$_POST["lama"].' day'));
-$query = $connection->query("INSERT INTO transaksi VALUES (NULL, $_SESSION[id_pelanggan], '".date('Y-m-d H:i:s')."', NULL, $_POST[lama], $totalbayar, '0', '$_POST[jaminan]', NULL, '$jatuhtempo', '0')");
+
+$id = $_SESSION["pelanggan"]["id"];
+$connection->query("INSERT INTO transaksi VALUES (NULL, $id, $_POST[id_mobil], '".date('Y-m-d H:i:s')."', NULL, NULL, $_POST[lama], $totalbayar, '0', '$_POST[jaminan]', NULL, '$jatuhtempo', '0', '0')");
+$supir_id = $connection->insert_id;
+
 if ($_POST["status"]) {
-	$hargasupir = number_format(30000);
+	$hargasupir = 30000;
 	$supir = $connection->query("SELECT id_supir FROM supir WHERE status='1' LIMIT 1");
-	$s = $supir->fetch_assoc();
-	$connection->query("INSERT INTO detail_transaksi VALUES (NULL, $connection->insert_id, $_POST[id_mobil], $s[id_supir])");
+	$s 		 = $supir->fetch_assoc();
+	$connection->query("INSERT INTO detail_transaksi VALUES (NULL, $supir_id, $s[id_supir], $hargasupir)");
 	$connection->query("UPDATE supir SET status='0' WHERE id_supir=$s[id_supir]");
-} else {
-	$hargasupir = 0;
 }
+
 $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]");
 ?>
+
 <div class="panel panel-info">
     <div class="panel-heading"><h3 class="text-center">Order Berhasil</h3></div>
     <div class="panel-body">
@@ -23,11 +33,11 @@ $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]")
             <thead>
                 <tr>
                     <th>Nama Pelanggan</th>
-                    <td>: <?=$_SESSION['nama']?></td>
+                    <td>: <?=$_SESSION["pelanggan"]["nama"]?></td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td>: <?=$_SESSION['email']?></td>
+                    <td>: <?=$_SESSION["pelanggan"]["email"]?></td>
                 </tr>
                 <tr>
                     <th>Harga Sewa</th>
@@ -35,7 +45,7 @@ $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]")
                 </tr>
                 <tr>
                     <th>Harga Supir</th>
-                    <td>: Rp.<?=$hargasupir?>,-/hari</td>
+                    <td>: Rp.<?=number_format($hargasupir)?>,-/hari</td>
                 </tr>
                 <tr>
                     <th>Lama Sewa</th>

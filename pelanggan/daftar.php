@@ -1,8 +1,8 @@
 <?php
 
-$update = ((isset($_GET['action']) AND $_GET['action'] == 'update') OR isset($_SESSION["is_pelanggan"])) ? true : false;
+$update = ((isset($_GET['action']) AND $_GET['action'] == 'update') OR isset($_SESSION["pelanggan"])) ? true : false;
 if ($update) {
-	$sql = $connection->query("SELECT * FROM pelanggan WHERE id_pelanggan='$_SESSION[id]'");
+	$sql = $connection->query("SELECT * FROM pelanggan WHERE id_pelanggan='$_SESSION[pelanggan][id]'");
 	$row = $sql->fetch_assoc();
 }
 
@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if ($_POST["password"] != "") {
 			$sql .= ", password='".md5($_POST["password"])."'";
 		}
-		$sql .= " WHERE id_pelanggan='$_SESSION[id]'";
+		$sql .= " WHERE id_pelanggan='$_SESSION[pelanggan][id]'";
 	} else {
 		$sql = "INSERT INTO pelanggan VALUES (NULL, '$_POST[no_ktp]', '$_POST[nama]', '$_POST[email]', '$_POST[no_telp]', '$_POST[alamat]', '$_POST[username]', '".md5($_POST["password"])."')";
 	}
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
-  $connection->query("DELETE FROM pelanggan WHERE id_pelanggan='$_SESSION[id]'");
+  $connection->query("DELETE FROM pelanggan WHERE id_pelanggan='$_SESSION[pelanggan][id]'");
 	echo alert("Berhasil!", "?page=pelanggan");
 }
 ?>

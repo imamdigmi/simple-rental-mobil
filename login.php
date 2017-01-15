@@ -6,15 +6,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($query->num_rows) {
             session_start();
             while ($data = $query->fetch_array()) {
-                $_SESSION["is_logged"] = true;
-                $_SESSION["is_pelanggan"] = true;
-                $_SESSION["id_pelanggan"] = $data["id_pelanggan"];
-                $_SESSION["username"] = $data["username"];
-                $_SESSION["nama"] = $data["nama"];
-                $_SESSION["no_ktp"] = $data["no_ktp"];
-                $_SESSION["no_telp"] = $data["no_telp"];
-                $_SESSION["email"] = $data["email"];
-                $_SESSION["alamat"] = $data["alamat"];
+                $_SESSION["pelanggan"]["is_logged"] = true;
+                $_SESSION["pelanggan"]["id"] = $data["id_pelanggan"];
+                $_SESSION["pelanggan"]["username"] = $data["username"];
+                $_SESSION["pelanggan"]["nama"] = $data["nama"];
+                $_SESSION["pelanggan"]["no_ktp"] = $data["no_ktp"];
+                $_SESSION["pelanggan"]["no_telp"] = $data["no_telp"];
+                $_SESSION["pelanggan"]["email"] = $data["email"];
+                $_SESSION["pelanggan"]["alamat"] = $data["alamat"];
               }
             header('location: index.php');
         } else {
@@ -57,6 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <button type="submit" class="btn btn-info btn-block">Login</button>
                         </form>
+                    </div>
+                    <div class="panel-footer">
+                      Belum punya akun? <a href="index.php?page=daftar">daftar sekarang.</a>
                     </div>
                 </div>
             </div>

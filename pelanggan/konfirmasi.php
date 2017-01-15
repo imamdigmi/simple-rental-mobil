@@ -1,7 +1,12 @@
 <?php
+
+if (!isset($_SESSION["pelanggan"])) {
+  header('location: login.php');
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $x = explode('.', $_FILES['bukti']['name']);
-    $bukti = $_SESSION["id_pelanggan"].date('dmYHis').'.'.strtolower(end($x));
+    $bukti = $_SESSION["pelanggan"]["id"].date('dmYHis').'.'.strtolower(end($x));
     @move_uploaded_file($_FILES['bukti']['tmp_name'], 'assets/img/bukti/'.$bukti);
 
     if ($connection->query("INSERT INTO konfirmasi VALUES(NULL, $_POST[_id], '$bukti')")) {

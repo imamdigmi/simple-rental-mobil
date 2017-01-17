@@ -43,43 +43,84 @@ if (!isset($_SESSION["pelanggan"])) {
   </div>
 
   <div class="col-md-8">
-    <div class="panel panel-info">
-      <div class="panel-heading"><h3 class="text-center">Riwayat Sewa</h3></div>
-      <div class="panel-body">
-        <?php if ($query = $connection->query("SELECT * FROM transaksi WHERE id_pelanggan=$id")): ?>
-            <?php $no = 1; ?>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Total Bayar</th>
-                        <th>Lama Sewa</th>
-                        <th>Jaminan</th>
-                        <th>Tanggal Sewa</th>
-                        <th>Tanggal Tempo Order</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($data = $query->fetch_assoc()): ?>
+    <div class="row">
+        <div class="panel panel-info">
+          <div class="panel-heading"><h3 class="text-center">Riwayat Penyewaan</h3></div>
+          <div class="panel-body">
+            <?php if ($query = $connection->query("SELECT * FROM transaksi WHERE id_pelanggan=$id")): ?>
+                <?php $no = 1; ?>
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            <td><?=$no++?></td>
-                            <td>Rp.<?=number_format($data['total_harga'])?>,-</td>
-                            <td><?=$data['lama']?> Hari</td>
-                            <td><?=$data['jaminan']?></td>
-                            <td><?=$data['tgl_sewa']?></td>
-                            <td><?=$data['jatuh_tempo']?></td>
-                            <td>
-                              <?php if ($data['konfirmasi'] == 0): ?>
-                                  <a href="?page=konfirmasi&id=<?= $data['id_transaksi'] ?>" class="btn btn-success btn-xs">Konfirmasi</a>
-                              <?php endif ?>
-                            </td>
+                            <th>No</th>
+                            <th>Total</th>
+                            <th>Lama</th>
+                            <th>Jaminan</th>
+                            <th>Tanggal</th>
+                            <th>Jatuh Tempo</th>
+                            <th></th>
                         </tr>
-                    <?php endwhile ?>
-                </tbody>
-            </table>
-        <?php endif ?>
-      </div>
+                    </thead>
+                    <tbody>
+                        <?php while ($data = $query->fetch_assoc()): ?>
+                            <tr>
+                                <td><?=$no++?></td>
+                                <td>Rp.<?=number_format($data['total_harga'])?>,-</td>
+                                <td><?=$data['lama']?> Hari</td>
+                                <td><?=$data['jaminan']?></td>
+                                <td><?=$data['tgl_sewa']?></td>
+                                <td><?=$data['jatuh_tempo']?></td>
+                                <td>
+                                  <div class="btn-group">
+                                      <?php if (!$data['konfirmasi'] AND !$data["pembatalan"]): ?>
+                                          <a href="?page=konfirmasi&id=<?= $data['id_transaksi'] ?>" class="btn btn-success btn-xs">Konfirmasi</a>
+                                      <?php endif ?>
+                                      <a href="?page=detail&id=<?= $data['id_transaksi'] ?>" class="btn btn-info btn-xs">Detail</a>
+                                  </div>
+                                </td>
+                            </tr>
+                        <?php endwhile ?>
+                    </tbody>
+                </table>
+            <?php endif ?>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-info">
+          <div class="panel-heading"><h3 class="text-center">Riwayat Denda</h3></div>
+          <div class="panel-body">
+            <?php if ($query = $connection->query("SELECT * FROM transaksi WHERE id_pelanggan=$id AND denda != 0")): ?>
+                <?php $no = 1; ?>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Jaminan</th>
+                            <th>Tanggal Sewa</th>
+                            <th>Total Harga</th>
+                            <th>Total Denda</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($data = $query->fetch_assoc()): ?>
+                            <tr>
+                                <td><?=$no++?></td>
+                                <td><?=$data['jaminan']?></td>
+                                <td><?=$data['tgl_sewa']?></td>
+                                <td>Rp.<?=number_format($data['total_harga'])?>,-</td>
+                                <td>Rp.<?=number_format($data['denda'])?>,-</td>
+                                <td>
+                                  <a href="?page=detail&id=<?= $data['id_transaksi'] ?>" class="btn btn-warning btn-xs">Lihat Transaksi</a>
+                                </td>
+                            </tr>
+                        <?php endwhile ?>
+                    </tbody>
+                </table>
+            <?php endif ?>
+          </div>
+        </div>
     </div>
   </div>
 </div>

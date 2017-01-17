@@ -2,17 +2,19 @@
 
 if (!isset($_SESSION["pelanggan"])) {
   header('location: login.php');
+  exit;
 }
 
 $query = $connection->query("SELECT * FROM mobil WHERE id_mobil=$_POST[id_mobil]");
 $data  = $query->fetch_assoc();
 
+$now = date("Y-m-d H").":00:00";
 $hargasupir = 0;
 $totalbayar = ((!$_POST["status"]) ? "" : (30000 * $_POST["lama"])) + ($data["harga"] * $_POST["lama"]);
-$jatuhtempo = date('Y-m-d H:i:s', strtotime('+'.$_POST["lama"].' day'));
+$jatuhtempo = date('Y-m-d H:i:s', strtotime('+3 hours'));
 
 $id = $_SESSION["pelanggan"]["id"];
-$connection->query("INSERT INTO transaksi VALUES (NULL, $id, $_POST[id_mobil], '".date('Y-m-d H:i:s')."', NULL, NULL, $_POST[lama], $totalbayar, '0', '$_POST[jaminan]', NULL, '$jatuhtempo', '0', '0')");
+$connection->query("INSERT INTO transaksi VALUES (NULL, $id, $_POST[id_mobil], '".$now."', NULL, NULL, $_POST[lama], $totalbayar, '0', '$_POST[jaminan]', NULL, '$jatuhtempo', '0', '0')");
 $supir_id = $connection->insert_id;
 
 if ($_POST["status"]) {

@@ -4,7 +4,7 @@ if (isset($_GET["action"])) {
 	$now = date("Y-m-d H").":00:00";
 	$sql = "UPDATE transaksi";
 	if ($_GET["action"] == "ambil") {
-		$sql = " SET tgl_ambil=".$now;
+		$sql .= " SET tgl_ambil='$now'";
 	} elseif ($_GET["action"] == "kembali") {
 		$query = $connection->query("SELECT * FROM transaksi JOIN detail_transaksi USING(id_transaksi) WHERE id_transaksi=$_GET[key]");
 		$r = $query->fetch_assoc();
@@ -67,8 +67,12 @@ if (isset($_GET["action"])) {
 												<td>Rp.<?=number_format($row['total_harga'])?>,-</td>
 												<td>
 														<div class="btn-group">
-																<a href="?page=lap_perperiode&action=ambil&key=<?=$row['id_transaksi']?>" class="btn btn-success btn-xs <?=($row["tgl_ambil"]) ? "disabled" : ""?>">Ambil</a>
+															<?php if (!$row["tgl_ambil"]): ?>
+																<a href="?page=lap_perperiode&action=ambil&key=<?=$row['id_transaksi']?>" class="btn btn-success btn-xs">Ambil</a>
+															<?php endif; ?>
+															<?php if ($row["tgl_ambil"]): ?>
 																<a href="?page=lap_perperiode&action=kembali&key=<?=$row['id_transaksi']?>" class="btn btn-primary btn-xs <?=($row["tgl_kembali"]) ? "disabled" : ""?>">Dikembalikan</a>
+															<?php endif; ?>
 														</div>
 												</td>
 										</tr>

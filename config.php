@@ -1,6 +1,7 @@
 <?php
 
 date_default_timezone_set('Asia/Jakarta');
+$now = date("Y-m-d H:00:00");
 
 /**
  * Database connection setup
@@ -49,11 +50,9 @@ function alert($msg, $to = null) {
 }
 
 // Pembatalan otomatis
-$now = date("Y-m-d H:00:00");
-$canceled = false;
 $query = $connection->query("SELECT jatuh_tempo, id_transaksi, id_mobil FROM transaksi WHERE konfirmasi='0'");
 while ($data = $query->fetch_assoc()) {
-  if ($now >= $data["jatuh_tempo"]) {
+  if ($now > $data["jatuh_tempo"]) {
     $connection->query("UPDATE transaksi SET pembatalan='1' WHERE id_transaksi=$data[id_transaksi]");
     $connection->query("UPDATE mobil SET status='1' WHERE id_mobil=$data[id_mobil]");
     $query = $connection->query("SELECT id_supir FROM detail_transaksi WHERE id_transaksi=$data[id_transaksi]");
@@ -61,5 +60,18 @@ while ($data = $query->fetch_assoc()) {
       $connection->query("UPDATE supir SET status='1' WHERE id_supir=".$query->fetch_assoc()["id_supir"]);
       $connection->query("DELETE FROM detail_transaksi WHERE id_transaksi=$data[id_transaksi]");
     }
+  }
+}
+
+// Perhitungan deneda otomatis
+$sql = "SELECT
+          a.id_transaksi,
+        	35000 * (TIMESTAMPDIFF(HOUR, ADDDATE(a.tgl_ambil, INTERVAL a.lama DAY), a.tgl_kembali)) AS denda
+        FROM transaksi a
+        WHERE tgl_kembali <> ''";
+$query = $connection->query($sql);
+while ($a = $query->fetch_assoc()) {
+  if (!$connection->query("UPDATE transaksi SET denda=$a[denda] WHERE id_transaksi=$a[id_transaksi]")) {
+    die("Hitung denda otomatis gagal.");
   }
 }

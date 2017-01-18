@@ -62,9 +62,9 @@ if (!isset($_SESSION["pelanggan"])) {
     								<?php if (!$r['konfirmasi']): ?>
                       <a href="?page=konfirmasi&id=<?= $r['id_transaksi'] ?>" class="btn btn-primary">Konfirmasi Sekarang</a>
                     <?php endif ?>
-    								<?php if (!$r['tgl_kembali'] AND !$r["pembatalan"]): ?>
+                    <?php if ($r['konfirmasi'] == 1 AND $r['tgl_kembali'] == NULL AND $r["pembatalan"] != 1): ?>
                       <a href="?page=perpanjang&id=<?= $r['id_transaksi'] ?>" class="btn btn-success">Perpanjang Sekarang</a>
-    								<?php endif ?>
+                    <?php endif ?>
 									</td>
 								</tr>
 							<?php endwhile; ?>

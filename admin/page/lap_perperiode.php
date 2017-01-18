@@ -8,12 +8,7 @@ if (isset($_GET["action"])) {
 	} elseif ($_GET["action"] == "kembali") {
 		$query = $connection->query("SELECT * FROM transaksi JOIN detail_transaksi USING(id_transaksi) WHERE id_transaksi=$_GET[key]");
 		$r = $query->fetch_assoc();
-		$start = new DateTime($r["tgl_ambil"]);
-		$stop  = new DateTime($now);
-		$diff  = $stop->diff($start);
-		$denda = 35000 * (int) $diff->format('%H');
-		(int) $diff->format('%H');
-		$sql .= " SET tgl_kembali='".$now."', status='1', denda=".$denda;
+		$sql .= " SET tgl_kembali='$now', status='1'";
 
 		$connection->query("UPDATE mobil SET status='1' WHERE id_mobil=".$r["id_mobil"]);
 		$connection->query("UPDATE supir SET status='1' WHERE id_supir=".$r["id_supir"]);

@@ -1,3 +1,11 @@
+<?php
+
+if (!isset($_SESSION["pelanggan"])) {
+  header('location: login.php');
+  exit;
+}
+
+?>
 <div class="panel panel-info">
     <div class="panel-heading"><h3 class="text-center">Sewa</h3></div>
     <div class="panel-body">

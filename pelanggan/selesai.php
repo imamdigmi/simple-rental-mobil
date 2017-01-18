@@ -11,7 +11,7 @@ $data  = $query->fetch_assoc();
 $now = date("Y-m-d H").":00:00";
 $hargasupir = 0;
 $totalbayar = ((!$_POST["status"]) ? "" : (30000 * $_POST["lama"])) + ($data["harga"] * $_POST["lama"]);
-$jatuhtempo = date('Y-m-d H:i:s', strtotime('+3 hours'));
+$jatuhtempo = date('Y-m-d H:00:00', strtotime('+3 hours'));
 
 $id = $_SESSION["pelanggan"]["id"];
 $connection->query("INSERT INTO transaksi VALUES (NULL, $id, $_POST[id_mobil], '".$now."', NULL, NULL, $_POST[lama], $totalbayar, '0', '$_POST[jaminan]', NULL, '$jatuhtempo', '0', '0')");
@@ -29,7 +29,7 @@ $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]")
 ?>
 
 <div class="panel panel-info">
-    <div class="panel-heading"><h3 class="text-center">Order Berhasil</h3></div>
+    <div class="panel-heading"><h3 class="text-center">Transaksi Berhasil</h3></div>
     <div class="panel-body">
         <table class="table table-bordered">
             <thead>
@@ -58,7 +58,7 @@ $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]")
                     <td>: Rp.<?=number_format($totalbayar)?>,-</td>
                 </tr>
                 <tr>
-                    <th>Jatuh Tempo (pengembalian mobil)</th>
+                    <th>Jatuh Tempo pembayaran</th>
                     <td>: <?=$jatuhtempo?></td>
                 </tr>
                 <tr>
@@ -79,6 +79,6 @@ $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]")
         </p>
     </div>
     <div class="panel-footer">
-        <a href="?page=profil" class="btn btn-primary btn-sm">Lihat Daftar Order</a>
+        <a href="?page=profil" class="btn btn-primary btn-sm">Lihat Profil</a>
     </div>
 </div>

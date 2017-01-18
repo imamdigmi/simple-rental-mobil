@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Asia/Jakarta');
+
 /**
  * Database connection setup
  */
@@ -47,15 +49,11 @@ function alert($msg, $to = null) {
 }
 
 // Pembatalan otomatis
-$now = date("Y-m-d H").":00:00";
+$now = date("Y-m-d H:00:00");
 $canceled = false;
-$query = $connection->query("SELECT tgl_sewa, id_transaksi, id_mobil FROM transaksi WHERE konfirmasi='0'");
+$query = $connection->query("SELECT jatuh_tempo, id_transaksi, id_mobil FROM transaksi WHERE konfirmasi='0'");
 while ($data = $query->fetch_assoc()) {
-  $start = new DateTime($data["tgl_sewa"]);
-  $stop  = new DateTime($now);
-  $diff  = $stop->diff($start);
-  $gap   = (int) $diff->format('%H');
-  if ($gap >= 3) {
+  if ($now >= $data["jatuh_tempo"]) {
     $connection->query("UPDATE transaksi SET pembatalan='1' WHERE id_transaksi=$data[id_transaksi]");
     $connection->query("UPDATE mobil SET status='1' WHERE id_mobil=$data[id_mobil]");
     $query = $connection->query("SELECT id_supir FROM detail_transaksi WHERE id_transaksi=$data[id_transaksi]");

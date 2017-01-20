@@ -62,7 +62,7 @@ if (isset($_GET["action"])) {
 												<td>Rp.<?=number_format($row['total_harga'])?>,-</td>
 												<td class="hidden-print">
 														<div class="btn-group">
-															<?php if ($row["tgl_ambil"] != "" AND $row["konfirmasi"] == 1): ?>
+															<?php if ($row["tgl_ambil"] == NULL AND $row["konfirmasi"] == 1): ?>
 																<a href="?page=lap_perperiode&action=ambil&key=<?=$row['id_transaksi']?>" class="btn btn-success btn-xs">Ambil</a>
 															<?php endif; ?>
 															<?php if ($row["tgl_ambil"]): ?>

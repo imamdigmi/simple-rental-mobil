@@ -71,7 +71,9 @@ $sql = "SELECT
         WHERE tgl_kembali <> ''";
 $query = $connection->query($sql);
 while ($a = $query->fetch_assoc()) {
-  if (!$connection->query("UPDATE transaksi SET denda=$a[denda] WHERE id_transaksi=$a[id_transaksi]")) {
-    die("Hitung denda otomatis gagal.");
+  if ($a["denda"] > 0) {
+      if (!$connection->query("UPDATE transaksi SET denda=$a[denda] WHERE id_transaksi=$a[id_transaksi]")) {
+        die("Hitung denda otomatis gagal.");
+      }
   }
 }

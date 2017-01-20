@@ -61,7 +61,7 @@ $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]")
                     <th>Jatuh Tempo pembayaran</th>
                     <td>: <?=$jatuhtempo?></td>
                 </tr>
-                <tr>
+                <tr class="hidden-print">
                     <th>Jaminan</th>
                     <td>: <?=$_POST["jaminan"]?></td>
                 </tr>
@@ -78,7 +78,8 @@ $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]")
             Jika anda sudah melakukan transfer silahkan anda melakukan konfirmasi pembayaran dengan mengunjungi halaman profil akun anda lalu tekan tombol <i><b>Konfirmasi</b></i>.
         </p>
     </div>
-    <div class="panel-footer">
+    <div class="panel-footer hidden-print">
         <a href="?page=profil" class="btn btn-primary btn-sm">Lihat Profil</a>
+        <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
     </div>
 </div>

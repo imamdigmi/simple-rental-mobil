@@ -1,4 +1,4 @@
-	<form class="form-inline" action="<?=$_SERVER["REQUEST_URI"]?>" method="post">
+	<form class="form-inline hidden-print" action="<?=$_SERVER["REQUEST_URI"]?>" method="post">
 		<select class="form-control" name="id_mobil">
 			<option>---</option>
 			<?php $query = $connection->query("SELECT * FROM mobil"); while ($r = $query->fetch_assoc()): ?>
@@ -21,7 +21,6 @@
 	                    <th>Nama Mobil</th>
 	                    <th>Merk</th>
 	                    <th>Harga Sewa</th>
-	                    <th></th>
 	                </tr>
 	            </thead>
 	            <tbody>
@@ -40,6 +39,9 @@
 	                <?php endif ?>
 	            </tbody>
 	        </table>
+	    </div>
+	    <div class="panel-footer hidden-print">
+	        <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
 	    </div>
 	  </div>
 	<?php endif; ?>

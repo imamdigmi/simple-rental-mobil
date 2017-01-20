@@ -56,7 +56,7 @@ if (!isset($_SESSION["pelanggan"])) {
 									<th>Pembatalan</th>
 									<td>: <span class="label label-<?=($r['pembatalan']) ? "danger" : "success"?>"><?=($r['pembatalan']) ? "Ya" : "Tidak"?></span></td>
 								</tr>
-								<tr>
+								<tr class="hidden-print">
 									<th></th>
 									<td> &nbsp;
     								<?php if (!$r['konfirmasi']): ?>
@@ -70,5 +70,8 @@ if (!isset($_SESSION["pelanggan"])) {
 							<?php endwhile; ?>
           </tbody>
       </table>
+    </div>
+    <div class="panel-footer hidden-print ">
+        <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
     </div>
   </div>

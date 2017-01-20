@@ -24,7 +24,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 }
 ?>
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-4 hidden-print">
 	    <div class="panel panel-<?= ($update) ? "warning" : "info" ?>">
 	        <div class="panel-heading"><h3 class="text-center"><?= ($update) ? "EDIT" : "TAMBAH" ?></h3></div>
 	        <div class="panel-body">
@@ -50,7 +50,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	                    <tr>
 	                        <th>No</th>
 	                        <th>Nama</th>
-	                        <th></th>
+	                        <th class="hidden-print"></th>
 	                    </tr>
 	                </thead>
 	                <tbody>
@@ -60,7 +60,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	                        <tr>
 	                            <td><?=$no++?></td>
 															<td><?=$row['nama']?></td>
-	                            <td>
+	                            <td class="hidden-print">
 	                                <div class="btn-group">
 	                                    <a href="?page=jenis&action=update&key=<?=$row['id_jenis']?>" class="btn btn-warning btn-xs">Edit</a>
 	                                    <a href="?page=jenis&action=delete&key=<?=$row['id_jenis']?>" class="btn btn-danger btn-xs">Hapus</a>
@@ -72,6 +72,9 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	                </tbody>
 	            </table>
 	        </div>
+			    <div class="panel-footer hidden-print">
+			        <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
+			    </div>
 	    </div>
 	</div>
 </div>

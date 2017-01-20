@@ -5,6 +5,10 @@ if (!isset($_SESSION["pelanggan"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(($_FILES['bukti']['name'] == "")){
+      echo alert("File bukti transaksi harus ada!", "?page=konfirmasi&id=".$_GET['id']);
+      exit;
+    }
     $x = explode('.', $_FILES['bukti']['name']);
     $bukti = $_SESSION["pelanggan"]["id"].date('dmYHis').'.'.strtolower(end($x));
     @move_uploaded_file($_FILES['bukti']['tmp_name'], 'assets/img/bukti/'.$bukti);

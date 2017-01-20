@@ -9,7 +9,7 @@
                       <th>Nama</th>
                       <th>Tgl Sewa</th>
                       <th>Total Harga</th>
-                      <th></th>
+                      <th class="hidden-print"></th>
                   </tr>
               </thead>
               <tbody>
@@ -21,7 +21,7 @@
 													<td><?=$row['nama']?></td>
 													<td><?=$row['tgl_sewa']?></td>
 													<td><?=$row['total_harga']?></td>
-                          <td>
+                          <td class="hidden-print">
 														<a  href="../assets/img/bukti/<?=$row['bukti']?>" class="btn btn-info btn-xs fancybox">Lihat Bukti</a>
                           </td>
                       </tr>
@@ -29,6 +29,9 @@
                   <?php endif ?>
               </tbody>
           </table>
+      </div>
+      <div class="panel-footer hidden-print">
+          <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
       </div>
   </div>
 </div>

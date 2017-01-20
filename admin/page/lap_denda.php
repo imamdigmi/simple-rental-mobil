@@ -25,4 +25,7 @@
 						</tbody>
 				</table>
 		</div>
+    <div class="panel-footer hidden-print">
+        <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
+    </div>
 	</div>

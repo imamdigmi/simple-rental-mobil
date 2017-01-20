@@ -54,7 +54,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 }
 ?>
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-4 hidden-print">
 	    <div class="panel panel-<?= ($update) ? "warning" : "info" ?>">
 	        <div class="panel-heading"><h3 class="text-center"><?= ($update) ? "EDIT" : "TAMBAH" ?></h3></div>
 	        <div class="panel-body">
@@ -121,7 +121,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	                        <th>Merk</th>
 	                        <th>Harga</th>
 	                        <th>Status</th>
-	                        <th></th>
+	                        <th class="hidden-print"></th>
 	                    </tr>
 	                </thead>
 	                <tbody>
@@ -136,7 +136,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 															<td><?=$row['merk']?></td>
 															<td><?=$row['harga']?></td>
 															<td><span class="label label-<?=($row['status']) ? "success" : "danger" ?>"><?=($row['status']) ? "Tersedia" : "Tidak Tersedia" ?></span></td>
-	                            <td>
+	                            <td class="hidden-print">
 	                                <div class="btn-group">
 	                                    <a href="../assets/img/mobil/<?=$row['gambar']?>" class="btn btn-info btn-xs fancybox">Lihat</a>
 	                                    <a href="?page=mobil&action=update&key=<?=$row['id_mobil']?>" class="btn btn-warning btn-xs">Edit</a>
@@ -149,6 +149,9 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	                </tbody>
 	            </table>
 	        </div>
+			    <div class="panel-footer hidden-print">
+			        <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
+			    </div>
 	    </div>
 	</div>
 </div>

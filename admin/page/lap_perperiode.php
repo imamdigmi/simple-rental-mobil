@@ -19,7 +19,7 @@ if (isset($_GET["action"])) {
 	}
 }
 ?>
-<form class="form-inline" action="<?=$_SERVER["REQUEST_URI"]?>" method="post">
+<form class="form-inline hidden-print" action="<?=$_SERVER["REQUEST_URI"]?>" method="post">
 	<label>Periode</label>
 	<input type="text" name="start">
 	<label>s/d</label>
@@ -43,7 +43,7 @@ if (isset($_GET["action"])) {
 										<th>Tanggal Kembali</th>
 										<th>Lama Sewa</th>
 										<th>Total Harga</th>
-										<th></th>
+										<th class="hidden-print"></th>
 								</tr>
 						</thead>
 						<tbody>
@@ -60,9 +60,9 @@ if (isset($_GET["action"])) {
 												<td><?=($row['tgl_kembali']) ? $row['tgl_kembali'] : "<b>Belum Dikembalikan</b>" ?></td>
 												<td><?=$row['lama']?> Hari</td>
 												<td>Rp.<?=number_format($row['total_harga'])?>,-</td>
-												<td>
+												<td class="hidden-print">
 														<div class="btn-group">
-															<?php if (!$row["tgl_ambil"]): ?>
+															<?php if ($row["tgl_ambil"] != "" AND $row["konfirmasi"] == 1): ?>
 																<a href="?page=lap_perperiode&action=ambil&key=<?=$row['id_transaksi']?>" class="btn btn-success btn-xs">Ambil</a>
 															<?php endif; ?>
 															<?php if ($row["tgl_ambil"]): ?>
@@ -76,5 +76,8 @@ if (isset($_GET["action"])) {
 						</tbody>
 				</table>
 		</div>
+    <div class="panel-footer hidden-print">
+        <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
+    </div>
 	</div>
 <?php endif; ?>

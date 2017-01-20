@@ -6,7 +6,7 @@ if (!isset($_SESSION["pelanggan"])) {
 
 ?>
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4 hidden-print">
     <div class="panel panel-info">
         <div class="panel-heading"><h3 class="text-center">Profil</h3></div>
         <div class="panel-body">
@@ -58,7 +58,7 @@ if (!isset($_SESSION["pelanggan"])) {
                             <th>Jaminan</th>
                             <th>Tanggal</th>
                             <th>Jatuh Tempo</th>
-                            <th></th>
+                            <th class="hidden-print"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +70,7 @@ if (!isset($_SESSION["pelanggan"])) {
                                 <td><?=$data['jaminan']?></td>
                                 <td><?=$data['tgl_sewa']?></td>
                                 <td><?=$data['jatuh_tempo']?></td>
-                                <td>
+                                <td class="hidden-print">
                                   <div class="btn-group">
                                       <?php if (!$data['konfirmasi'] AND !$data["pembatalan"]): ?>
                                           <a href="?page=konfirmasi&id=<?= $data['id_transaksi'] ?>" class="btn btn-success btn-xs">Konfirmasi</a>
@@ -83,6 +83,9 @@ if (!isset($_SESSION["pelanggan"])) {
                     </tbody>
                 </table>
             <?php endif ?>
+          </div>
+          <div class="panel-footer hidden-print ">
+              <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
           </div>
         </div>
     </div>
@@ -119,6 +122,9 @@ if (!isset($_SESSION["pelanggan"])) {
                     </tbody>
                 </table>
             <?php endif ?>
+          </div>
+          <div class="panel-footer hidden-print ">
+              <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
           </div>
         </div>
     </div>

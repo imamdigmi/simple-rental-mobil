@@ -1,9 +1,7 @@
 <?php
-
 if (!isset($_SESSION["pelanggan"])) {
   header('location: login.php');
 }
-
 ?>
 <div class="row">
   <div class="col-md-4 hidden-print">
@@ -45,7 +43,7 @@ if (!isset($_SESSION["pelanggan"])) {
   <div class="col-md-8">
     <div class="row">
         <div class="panel panel-info">
-          <div class="panel-heading"><h3 class="text-center">Riwayat Penyewaan</h3></div>
+          <div class="panel-heading"><h3 class="text-center">Riwayat Transaksi</h3></div>
           <div class="panel-body">
             <?php if ($query = $connection->query("SELECT * FROM transaksi WHERE id_pelanggan=$id")): ?>
                 <?php $no = 1; ?>
@@ -93,14 +91,15 @@ if (!isset($_SESSION["pelanggan"])) {
         <div class="panel panel-info">
           <div class="panel-heading"><h3 class="text-center">Riwayat Denda</h3></div>
           <div class="panel-body">
-            <?php if ($query = $connection->query("SELECT * FROM transaksi WHERE id_pelanggan=$id AND denda != 0")): ?>
+            <?php if ($query = $connection->query("SELECT * FROM transaksi WHERE id_pelanggan=$id AND denda <> ''")): ?>
                 <?php $no = 1; ?>
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Jaminan</th>
-                            <th>Tanggal Sewa</th>
+                            <th>Tanggal Ambil</th>
+                            <th>Tanggal Kembali</th>
                             <th>Total Harga</th>
                             <th>Total Denda</th>
                             <th></th>
@@ -111,7 +110,8 @@ if (!isset($_SESSION["pelanggan"])) {
                             <tr>
                                 <td><?=$no++?></td>
                                 <td><?=$data['jaminan']?></td>
-                                <td><?=$data['tgl_sewa']?></td>
+                                <td><?=$data['tgl_ambil']?></td>
+                                <td><?=$data['tgl_kembali']?></td>
                                 <td>Rp.<?=number_format($data['total_harga'])?>,-</td>
                                 <td>Rp.<?=number_format($data['denda'])?>,-</td>
                                 <td>

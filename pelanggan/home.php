@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h2>Mobil <small>data mobil!</small></h2>
+	<h2>Monggo</small></h2>
 </div>
 <div class="row">
 	<?php $query = $connection->query("SELECT * FROM mobil"); while ($row = $query->fetch_assoc()): ?>

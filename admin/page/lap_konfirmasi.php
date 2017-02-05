@@ -1,4 +1,4 @@
-  <form class="form-inline hidden-print" action="<?=$_SERVER["REQUEST_URI"]?>" method="post">
+<form class="form-inline hidden-print" action="<?=$_SERVER["REQUEST_URI"]?>" method="post">
     <label>Periode</label>
     <input type="text" class="form-control" name="start">
     <label>s/d</label>
@@ -26,11 +26,11 @@
                         <?php while($row = $query->fetch_assoc()): ?>
                         <tr>
                             <td><?=$no++?></td>
-  													<td><?=$row['nama']?></td>
-  													<td><?=$row['tgl_sewa']?></td>
-  													<td><?=$row['total_harga']?></td>
+                            <td><?=$row['nama']?></td>
+                            <td><?=$row['tgl_sewa']?></td>
+                            <td><?=$row['total_harga']?></td>
                             <td class="hidden-print">
-  														<a  href="../assets/img/bukti/<?=$row['bukti']?>" class="btn btn-info btn-xs fancybox">Lihat Bukti</a>
+                              <a  href="../assets/img/bukti/<?=$row['bukti']?>" class="btn btn-info btn-xs fancybox">Lihat Bukti</a>
                             </td>
                         </tr>
                         <?php endwhile ?>
@@ -46,30 +46,30 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".fancybox").fancybox({
-		openEffect  : 'none',
-		closeEffect : 'none',
-		iframe : {
-			preload: false
-		}
-	});
-	$(".various").fancybox({
-		maxWidth    : 800,
-		maxHeight    : 600,
-		fitToView    : false,
-		width        : '70%',
-		height        : '70%',
-		autoSize    : false,
-		closeClick    : false,
-		openEffect    : 'none',
-		closeEffect    : 'none'
-	});
-	$('.fancybox-media').fancybox({
-		openEffect  : 'none',
-		closeEffect : 'none',
-		helpers : {
-			media : {}
-		}
-	});
+  $(".fancybox").fancybox({
+    openEffect  : 'none',
+    closeEffect : 'none',
+    iframe : {
+      preload: false
+    }
+  });
+  $(".various").fancybox({
+    maxWidth    : 800,
+    maxHeight    : 600,
+    fitToView    : false,
+    width        : '70%',
+    height        : '70%',
+    autoSize    : false,
+    closeClick    : false,
+    openEffect    : 'none',
+    closeEffect    : 'none'
+  });
+  $('.fancybox-media').fancybox({
+    openEffect  : 'none',
+    closeEffect : 'none',
+    helpers : {
+      media : {}
+    }
+  });
 });
 </script>

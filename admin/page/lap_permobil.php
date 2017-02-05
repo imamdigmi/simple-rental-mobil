@@ -1,4 +1,4 @@
-	<form class="form-inline hidden-print" action="<?=$_SERVER["REQUEST_URI"]?>" method="post">
+<form class="form-inline hidden-print" action="<?=$_SERVER["REQUEST_URI"]?>" method="post">
 		<label>Mobil :</label>
 		<select class="form-control" name="id_mobil">
 			<option>---</option>
@@ -74,4 +74,4 @@
 	        <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
 	    </div>
 	  </div>
-	<?php endif; ?>
+<?php endif; ?>

@@ -1,12 +1,10 @@
 <?php
-
 if (!isset($_SESSION["pelanggan"])) {
   header('location: login.php');
 }
-
 ?>
   <div class="panel panel-info">
-    <div class="panel-heading"><h3 class="text-center">Detail Penyewaan</h3></div>
+    <div class="panel-heading"><h3 class="text-center">Detail Transaksi</h3></div>
     <div class="panel-body">
       <table class="table table-hover">
           <tbody>
@@ -37,7 +35,7 @@ if (!isset($_SESSION["pelanggan"])) {
 									<td>: <?=($r['tgl_ambil']) ? $r['tgl_ambil'] : "<b>Belum</b>"?></td>
 								</tr>
 								<tr>
-									<th>Kembali</th>
+									<th>Tanggal Kembali</th>
 									<td>: <?=($r['tgl_kembali']) ? $r['tgl_kembali'] : "<b>Belum</b>"?></td>
 								</tr>
 								<tr>
@@ -74,4 +72,4 @@ if (!isset($_SESSION["pelanggan"])) {
     <div class="panel-footer hidden-print ">
         <a onClick="window.print();return false" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i></a>
     </div>
-  </div>
+</div>

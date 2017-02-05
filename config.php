@@ -1,16 +1,13 @@
 <?php
-
 date_default_timezone_set('Asia/Jakarta');
 $now = date("Y-m-d H:00:00");
-
 /**
  * Database connection setup
  */
-// if (!$connection = new Mysqli("localhost", "root", "idiot", "mobil")) {
-if (!$connection = new Mysqli("mysql.idhostinger.com", "u366092382_cal", "calysta", "u366092382_cal")) {
+ if (!$connection = new Mysqli("localhost", "root", "", "mobil")) {
+// if (!$connection = new Mysqli("mysql.idhostinger.com", "u366092382_cal", "calysta", "u366092382_cal")) {
   echo "<h3>ERROR: Koneksi database gagal!</h3>";
 }
-
 /**
  * Page initialize
  */
@@ -21,7 +18,6 @@ if (isset($_GET["page"])) {
   $_PAGE = "home";
   $_ADMINPAGE = "home";
 }
-
 /**
  * Page setup
  * @param page
@@ -30,7 +26,6 @@ if (isset($_GET["page"])) {
 function page($page) {
   return "pelanggan/" . $page . ".php";
 }
-
 /**
  * Page setup
  * @param page
@@ -39,7 +34,6 @@ function page($page) {
 function adminPage($page) {
   return "page/" . $page . ".php";
 }
-
 /**
  * Alert notification
  * @param message, redirection
@@ -52,8 +46,8 @@ function alert($msg, $to = null) {
 
 // Pembatalan otomatis
 $query = $connection->query("SELECT jatuh_tempo, id_transaksi, id_mobil FROM transaksi WHERE konfirmasi='0'");
-while ($data = $query->fetch_assoc()) {
-  if ($now > $data["jatuh_tempo"]) {
+while ($data = $query->fetch_assoc()) { //mengeluarkan data dari query diatas
+  if ($now > $data["jatuh_tempo"]) {// jika jatuh tempo lebih dari tgl skrg maka 
     $connection->query("UPDATE transaksi SET pembatalan='1' WHERE id_transaksi=$data[id_transaksi]");
     $connection->query("UPDATE mobil SET status='1' WHERE id_mobil=$data[id_mobil]");
     $query = $connection->query("SELECT id_supir FROM detail_transaksi WHERE id_transaksi=$data[id_transaksi]");
@@ -64,15 +58,22 @@ while ($data = $query->fetch_assoc()) {
   }
 }
 
-// Perhitungan deneda otomatis
+// Perhitungan deneda otomatis CONTOH : ADDDATE('2017-01-01', INTERVAL 1 DAY)
 $sql = "SELECT
           a.id_transaksi,
-        	35000 * (TIMESTAMPDIFF(HOUR, ADDDATE(a.tgl_ambil, INTERVAL a.lama DAY), a.tgl_kembali)) AS denda
+          (
+            TIMESTAMPDIFF(
+              HOUR, 
+              ADDDATE(a.tgl_ambil, INTERVAL a.lama DAY), 
+              a.tgl_kembali
+            )
+          ) AS terlambat,
+          35000 * (TIMESTAMPDIFF(HOUR, ADDDATE(a.tgl_ambil, INTERVAL a.lama DAY), a.tgl_kembali)) AS denda
         FROM transaksi a
-        WHERE tgl_kembali <> ''";
+        WHERE a.tgl_kembali <> ''";
 $query = $connection->query($sql);
-while ($a = $query->fetch_assoc()) {
-  if ($a["denda"] > 0) {
+while ($a = $query->fetch_assoc()) { //
+  if ($a["denda"] > 0) { //
       if (!$connection->query("UPDATE transaksi SET denda=$a[denda] WHERE id_transaksi=$a[id_transaksi]")) {
         die("Hitung denda otomatis gagal.");
       }

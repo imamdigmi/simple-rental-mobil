@@ -4,7 +4,6 @@ if ($update) {
 	$sql = $connection->query("SELECT * FROM admin WHERE id_admin='$_GET[key]'");
 	$row = $sql->fetch_assoc();
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($update) {
 		$sql = "UPDATE admin SET nama='$_POST[nama]', email='$_POST[email]', alamat='$_POST[alamat]', telp='$_POST[telp]', username='$_POST[username]'";
@@ -21,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		echo alert("Gagal!", "?page=admin");
   }
 }
-
 if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
   $connection->query("DELETE FROM admin WHERE id_admin='$_GET[key]'");
 	echo alert("Berhasil!", "?page=admin");
@@ -70,7 +68,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	</div>
 	<div class="col-md-8">
 	    <div class="panel panel-info">
-	        <div class="panel-heading"><h3 class="text-center">DAFTAR</h3></div>
+	        <div class="panel-heading"><h3 class="text-center">DAFTAR ADMIN</h3></div>
 	        <div class="panel-body">
 	            <table class="table table-condensed">
 	                <thead>

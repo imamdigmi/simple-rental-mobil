@@ -1,10 +1,8 @@
 <?php
-
 if (!isset($_SESSION["pelanggan"])) {
   header('location: login.php');
   exit;
 }
-
 ?>
 <div class="panel panel-info">
     <div class="panel-heading"><h3 class="text-center">Sewa</h3></div>
@@ -14,9 +12,9 @@ if (!isset($_SESSION["pelanggan"])) {
             <div class="form-group">
                 <label for="lama">Lama Sewa</label>
                 <select name="lama" class="form-control">
-										<?php for ($i=1; $i<=7; $i++): ?>
-											<option value="<?=$i?>"><?=$i?> Hari</option>
-										<?php endfor; ?>
+                    <?php for ($i=1; $i<=7; $i++): ?>
+                      <option value="<?=$i?>"><?=$i?> Hari</option>
+                    <?php endfor; ?>
                 </select>
             </div>
             <div class="form-group">

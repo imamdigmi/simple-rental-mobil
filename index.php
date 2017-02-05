@@ -30,7 +30,7 @@ require_once "config.php";
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">RENTAL MOBIL</a>
+                    <a class="navbar-brand" href="#">RENTAL MOBIL CALYSTA</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">

@@ -4,7 +4,6 @@ if ($update) {
 	$sql = $connection->query("SELECT * FROM jenis WHERE id_jenis='$_GET[key]'");
 	$row = $sql->fetch_assoc();
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($update) {
 		$sql = "UPDATE jenis SET nama='$_POST[nama]' WHERE id_jenis='$_GET[key]'";
@@ -17,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		echo alert("Gagal!", "?page=jenis");
   }
 }
-
 if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
   $connection->query("DELETE FROM jenis WHERE id_jenis='$_GET[key]'");
 	echo alert("Berhasil!", "?page=jenis");
@@ -43,7 +41,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	</div>
 	<div class="col-md-8">
 	    <div class="panel panel-info">
-	        <div class="panel-heading"><h3 class="text-center">DAFTAR</h3></div>
+	        <div class="panel-heading"><h3 class="text-center">DAFTAR JENIS</h3></div>
 	        <div class="panel-body">
 	            <table class="table table-condensed">
 	                <thead>

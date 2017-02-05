@@ -4,7 +4,6 @@ if ($update) {
 	$sql = $connection->query("SELECT * FROM mobil WHERE id_mobil='$_GET[key]'");
 	$row = $sql->fetch_assoc();
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$err = false;
 	$file = $_FILES['gambar']['name'];
@@ -32,13 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$err = true;
 		}
 	}
-
 	if ($update) {
 		$sql = "UPDATE mobil SET id_jenis='$_POST[id_jenis]', no_mobil='$_POST[no_mobil]', merk='$_POST[merk]', nama_mobil='$_POST[nama_mobil]', gambar='$file_name', harga='$_POST[harga]', status='$_POST[status]' WHERE id_mobil='$_GET[key]'";
 	} else {
 		$sql = "INSERT INTO mobil VALUES (NULL, '$_POST[id_jenis]', '$_POST[no_mobil]', '$_POST[merk]', '$_POST[nama_mobil]', '$file_name', '$_POST[harga]', '$_POST[status]')";
 	}
-
 	if (!$err) {
 	  if ($connection->query($sql)) {
 	    echo alert("Berhasil!", "?page=mobil");
@@ -47,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  }
 	}
 }
-
 if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
   $connection->query("DELETE FROM mobil WHERE id_mobil='$_GET[key]'");
 	echo alert("Berhasil!", "?page=mobil");
@@ -109,7 +105,7 @@ if (isset($_GET['action']) AND $_GET['action'] == 'delete') {
 	</div>
 	<div class="col-md-8">
 	    <div class="panel panel-info">
-	        <div class="panel-heading"><h3 class="text-center">DAFTAR</h3></div>
+	        <div class="panel-heading"><h3 class="text-center">DAFTAR MOBIL</h3></div>
 	        <div class="panel-body">
 	            <table class="table table-condensed">
 	                <thead>

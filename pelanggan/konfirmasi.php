@@ -1,9 +1,7 @@
 <?php
-
 if (!isset($_SESSION["pelanggan"])) {
   header('location: login.php');
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(($_FILES['bukti']['name'] == "")){
       echo alert("File bukti transaksi harus ada!", "?page=konfirmasi&id=".$_GET['id']);
@@ -12,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $x = explode('.', $_FILES['bukti']['name']);
     $bukti = $_SESSION["pelanggan"]["id"].date('dmYHis').'.'.strtolower(end($x));
     @move_uploaded_file($_FILES['bukti']['tmp_name'], 'assets/img/bukti/'.$bukti);
-
     if ($connection->query("INSERT INTO konfirmasi VALUES(NULL, $_POST[_id], '$bukti')")) {
         $connection->query("UPDATE transaksi SET konfirmasi='1' WHERE id_transaksi=$_POST[_id]");
         echo alert("Konfirmasi Berhasil!", "?page=profil");

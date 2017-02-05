@@ -33,7 +33,7 @@ if (!isset($_SESSION["admin"])) {
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">ADMIN | RENTAL MOBIL</a>
+                    <a class="navbar-brand" href="#">ADMIN | RENTAL MOBIL CALYSTA</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
@@ -45,6 +45,7 @@ if (!isset($_SESSION["admin"])) {
                             <li><a href="?page=jenis">Jenis</a></li>
                             <li><a href="?page=mobil">Mobil</a></li>
                             <li><a href="?page=supir">Supir</a></li>
+                            <li><a href="?page=pelanggan">Pelanggan</a></li>
                           </ul>
                         </li>
                         <li class="dropdown">
@@ -52,6 +53,7 @@ if (!isset($_SESSION["admin"])) {
                           <ul class="dropdown-menu">
                             <li><a href="?page=lap_konfirmasi">Konfirmasi</a></li>
                             <li><a href="?page=lap_permobil">Penyewaan Permobil</a></li>
+                            <li><a href="?page=lap_seringdenda">Sering Denda</a></li>
                             <li><a href="?page=lap_perperiode">Penyewaan Perperiode</a></li>
                             <li><a href="?page=lap_terlaris">Terlaris</a></li>
                             <li><a href="?page=lap_denda">Denda</a></li>

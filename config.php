@@ -4,8 +4,8 @@ $now = date("Y-m-d H:00:00");
 /**
  * Database connection setup
  */
- if (!$connection = new Mysqli("localhost", "root", "idiot", "mobil")) {
-// if (!$connection = new Mysqli("mysql.idhostinger.com", "u502153432_mobil", "calysta", "u502153432_mobil")) {
+ // if (!$connection = new Mysqli("localhost", "root", "idiot", "mobil")) {
+if (!$connection = new Mysqli("mysql.idhostinger.com", "u502153432_mobil", "calysta", "u502153432_mobil")) {
   echo "<h3>ERROR: Koneksi database gagal!</h3>";
 }
 /**
@@ -47,7 +47,7 @@ function alert($msg, $to = null) {
 // Pembatalan otomatis
 $query = $connection->query("SELECT a.jatuh_tempo, a.id_transaksi, a.id_mobil, (TIMESTAMPDIFF(HOUR, a.tgl_sewa, NOW())) AS tempo FROM transaksi a WHERE a.konfirmasi='0'");
 while ($data = $query->fetch_assoc()) {
-  if ($data["tempo"] > 0) {
+  if ($data["tempo"] > 3) {
     $connection->query("UPDATE transaksi SET pembatalan='1' WHERE id_transaksi=$data[id_transaksi]");
     $connection->query("UPDATE mobil SET status='1' WHERE id_mobil=$data[id_mobil]");
     $q = $connection->query("SELECT id_supir FROM detail_transaksi WHERE id_transaksi=$data[id_transaksi]");

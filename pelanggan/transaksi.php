@@ -18,6 +18,36 @@ if (!isset($_SESSION["pelanggan"])) {
                 </select>
             </div>
             <div class="form-group">
+                <label>Tanggal Ambil</label>
+                <!-- <input type="text" name="ambil" class="form-control"> -->
+                <div class="row">
+                  <div class="col-md-4">
+                    <select name="thn" class="form-control" required="on">
+                        <option>-- Tahun --</option>
+                        <?php for ($i=2017; $i<=2020; $i++): ?>
+                          <option value="<?=$i?>"><?=$i?></option>
+                        <?php endfor; ?>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select name="bln" class="form-control" required="on">
+                        <option>-- Bulan --</option>
+                        <?php for ($i=1; $i<=12; $i++): ?>
+                          <option value="<?=$i?>"><?=$i?></option>
+                        <?php endfor; ?>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select name="tgl" class="form-control" required="on">
+                        <option>-- Tanggal --</option>
+                        <?php for ($i=1; $i<=31; $i++): ?>
+                          <option value="<?=$i?>"><?=$i?></option>
+                        <?php endfor; ?>
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="status">Pakai supir?</label>
                 <?php $query = $connection->query("SELECT id_supir FROM supir WHERE status='1' LIMIT 1"); if ($query->num_rows == 0): ?>
                   <input type="text" class="form-control" disabled value="Maaf saat ini supir belum tersedia...">
@@ -36,7 +66,7 @@ if (!isset($_SESSION["pelanggan"])) {
                     <option value="Sertifikat Rumah">Sertifikat Rumah</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-info btn-block">Bayar!</button>
+            <button type="submit" class="btn btn-info btn-block">NEXT!</button>
         </form>
     </div>
 </div>

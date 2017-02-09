@@ -60,9 +60,9 @@ if (isset($_GET["action"])) {
 												<td>Rp.<?=number_format($row['total_harga'])?>,-</td>
 												<td class="hidden-print">
 														<div class="btn-group">
-															<?php if (($row["konfirmasi"] == 1) AND ($row["tgl_ambil"] == NULL) AND ($row["tgl_kembali"] == NULL)): ?>
-																<a href="?page=lap_perperiode&action=ambil&key=<?=$row['id_transaksi']?>" class="btn btn-success btn-xs">Ambil</a>
-															<?php endif; ?>
+															<?php //if (($row["konfirmasi"] == 1) AND ($row["tgl_ambil"] == NULL) AND ($row["tgl_kembali"] == NULL)): ?>
+																<!-- <a href="?page=lap_perperiode&action=ambil&key=<?//=$row['id_transaksi']?>" class="btn btn-success btn-xs">Ambil</a> -->
+															<?php //endif; ?>
 															<?php if ($row["konfirmasi"] AND $row["tgl_kembali"] == NULL): ?>
 																<a href="?page=lap_perperiode&action=kembali&key=<?=$row['id_transaksi']?>" class="btn btn-primary btn-xs">Dikembalikan</a>
 															<?php endif; ?>

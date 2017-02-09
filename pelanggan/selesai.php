@@ -3,18 +3,33 @@ if (!isset($_SESSION["pelanggan"])) {
   header('location: login.php');
   exit;
 }
+
+$tgl_ambil   = $_POST["thn"]."-".$_POST["bln"]."-".$_POST["tgl"]." ".date("H:i:s");
+
+// Validasi
+$sql = $connection->query("SELECT id_mobil, tgl_ambil, lama FROM transaksi WHERE id_mobil = $_POST[id_mobil] AND status='0'");
+if ($sql->num_rows) {
+    $d = $sql->fetch_assoc();
+    echo "SELECT ((DATEDIFF(ADDDATE('$tgl_ambil', INTERVAL $_POST[lama] DAY), ADDDATE('$d[tgl_ambil]', INTERVAL $d[lama] DAY)))) AS t FROM transaksi WHERE id_mobil=$d[id_mobil]";
+    $s = $connection->query("SELECT ((DATEDIFF(ADDDATE('$tgl_ambil', INTERVAL $_POST[lama] DAY), ADDDATE('$d[tgl_ambil]', INTERVAL $d[lama] DAY)))) AS t FROM transaksi WHERE id_mobil=$d[id_mobil]");
+    $a = $s->fetch_assoc();
+    if ($a['t'] < 0) {
+        echo alert("Maaf, mobil yang anda sewa sudah di pesan! silahkan pilih mobil yang lain saja cuk!");
+    }
+}
+
+die();
+
 $query = $connection->query("SELECT * FROM mobil WHERE id_mobil=$_POST[id_mobil]");
 $data  = $query->fetch_assoc();
 
+$hargasupir  = 0;
 $id          = $_SESSION["pelanggan"]["id"]; // id user yang sedang login
 $jatuhtempo  = date('Y-m-d H:00:00', strtotime('+3 hours')); //jam skrg + 3 jam
-$hargasupir  = 0; // 
-if ($_POST["status"]) {
-    $hargasupir = (30000 * $_POST["lama"]);
-}
-$totalbayar = $hargasupir + ($data["harga"] * $_POST["lama"]);
+$totalbayar  = $hargasupir + ($data["harga"] * $_POST["lama"]);
+if ($_POST["status"]) $hargasupir = (30000 * $_POST["lama"]);
 
-$connection->query("INSERT INTO transaksi VALUES (NULL, $id, $_POST[id_mobil], '$now', NULL, NULL, $_POST[lama], $totalbayar, '0', '$_POST[jaminan]', NULL, '$jatuhtempo', '0', '0')");
+$connection->query("INSERT INTO transaksi VALUES (NULL, $id, $_POST[id_mobil], '$now', '$tgl_ambil', NULL, $_POST[lama], $totalbayar, '0', '$_POST[jaminan]', NULL, '$jatuhtempo', '0', '0')");
 $idtransaksi = $connection->insert_id;
 
 if ($_POST["status"]) {
@@ -24,7 +39,6 @@ if ($_POST["status"]) {
     $connection->query("INSERT INTO detail_transaksi VALUES (NULL, $idtransaksi, $s[id_supir], $hargasupir)");
     $connection->query("UPDATE supir SET status='0' WHERE id_supir=$s[id_supir]");
 }
-$connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]");
 ?>
 
 <div class="panel panel-info">
@@ -51,6 +65,10 @@ $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]")
                 <tr>
                     <th>Lama Sewa</th>
                     <td>: <?=$_POST["lama"]?> hari</td>
+                </tr>
+                <tr>
+                    <th>Tanggal Ambil</th>
+                    <td>: <?=$tgl_ambil?></td>
                 </tr>
                 <tr>
                     <th>Total Bayar</th>

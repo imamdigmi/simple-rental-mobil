@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.4deb1
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 04, 2017 at 06:49 PM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 7.0.4
+-- Host: localhost:3306
+-- Generation Time: Jan 16, 2017 at 02:30 AM
+-- Server version: 5.7.16-0ubuntu0.16.10.1
+-- PHP Version: 7.0.13-0ubuntu0.16.10.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mobil`
 --
+CREATE DATABASE IF NOT EXISTS `mobil` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `mobil`;
 
 -- --------------------------------------------------------
 
@@ -61,10 +63,8 @@ CREATE TABLE `detail_transaksi` (
 --
 
 INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_supir`, `jasa_supir`) VALUES
-(2, 23, 3, 30000),
-(3, 24, 3, 30000),
-(5, 27, 3, 30000),
-(6, 29, 3, 30000);
+(4, 7, 2, 30000),
+(5, 11, 2, 30000);
 
 -- --------------------------------------------------------
 
@@ -82,9 +82,9 @@ CREATE TABLE `jenis` (
 --
 
 INSERT INTO `jenis` (`id_jenis`, `nama`) VALUES
-(6, 'Sedan'),
-(7, 'MPV'),
-(8, 'Hatchback');
+(3, 'Sedan'),
+(4, 'Pick Up'),
+(5, 'Jeep');
 
 -- --------------------------------------------------------
 
@@ -103,12 +103,7 @@ CREATE TABLE `konfirmasi` (
 --
 
 INSERT INTO `konfirmasi` (`id_konfirmasi`, `id_transaksi`, `bukti`) VALUES
-(10, 23, '302022017195207.jpg'),
-(11, 24, '302022017215544.jpg'),
-(12, 27, '703022017152035.jpg'),
-(13, 28, '703022017154810.jpg'),
-(14, 29, '304022017143711.jpg'),
-(15, 30, '304022017143820.jpg');
+(2, 11, '415012017235555.png');
 
 -- --------------------------------------------------------
 
@@ -132,14 +127,11 @@ CREATE TABLE `mobil` (
 --
 
 INSERT INTO `mobil` (`id_mobil`, `id_jenis`, `no_mobil`, `merk`, `nama_mobil`, `gambar`, `harga`, `status`) VALUES
-(5, 8, 'AB 1717 YK', 'Honda', 'Jazz Biru', '12012017123114.jpg', 250000, '0'),
-(6, 8, 'AB 2233 YB', 'Honda', 'Jazz Merah', '12012017123431.png', 250000, '0'),
-(7, 8, 'AB 3210 YB', 'Honda', 'Brio Merah', '12012017205958.jpg', 250000, '0'),
-(8, 7, 'AB 2345 BB', 'Daihatsu', 'Xenia Hitam', '12012017123921.png', 200000, '0'),
-(9, 7, 'AB 6543 YK', 'Daihatsu', 'Xenia SS', '12012017124035.png', 200000, '0'),
-(10, 7, 'AB 1587 YK', 'Toyota', 'Avanza Putih', '12012017124409.jpg', 200000, '1'),
-(11, 7, 'AB 2725 EB', 'Toyota', 'Avanza SS', '12012017124524.png', 200000, '1'),
-(13, 6, 'AB 2391 WK', 'Honda', 'Civic Hitam', '12012017124742.jpg', 250000, '1');
+(1, 3, 'Sedan', 'Sedan Lagi', 'Sedan Juga', '15012017231222.png', 900000, '1'),
+(2, 4, 'ab 3355 yk', 'hoon', 'haha', '15012017231548.png', 250000, '0'),
+(3, 5, 'ab 1717 bh', 'yam', 'yuhu', '15012017231638.png', 100000, '0'),
+(4, 4, 'ab 1768 wk', 'jjjj', 'yii', '15012017231736.png', 150000, '0'),
+(5, 3, 'ab 6767 sd', 'hon', 'hhhjh', '15012017231817.png', 200000, '1');
 
 -- --------------------------------------------------------
 
@@ -163,11 +155,8 @@ CREATE TABLE `pelanggan` (
 --
 
 INSERT INTO `pelanggan` (`id_pelanggan`, `no_ktp`, `nama`, `email`, `no_telp`, `alamat`, `username`, `password`) VALUES
-(3, '6105014209930001', 'Tri Septa Kurnia', 'triseptakurnia@gmail.com', '081237070', 'Gg. Puntodewo No. 137B', '125610098', 'dc502eff4e2efeaecb6566348dfb630b'),
-(4, '1616161616161616', 'Sinta', 'siinta@gmail.com', '081288776612', 'Gg.Nusantara', 'sinta', '08ca451b5ef1a7c86763d31e7711a522'),
-(5, '1212121212121212', 'desi', 'triseptakurnia@yahoo.com', '081288776612', 'janti', 'desi', 'b7a3bcbb9980cb66e52783c1582e1294'),
-(6, '1212121212121212', 'Heni', 'triseptakurnia@yahoo.com', '081288776613', 'janti', 'heni', 'cd07a63af5f14ac0d51b5bbbf6e93ae9'),
-(7, '1113111018101311', 'Telolet', 'afifahnur119@gmail.com', '085282716910', 'Jl. Solo', 'telolet', '2e1615db10a067688b767e01fc4dd792');
+(4, '09810237127', 'pelanggan', 'pelanggan@gmail.com', '08970008875', 'jogja', 'pelanggan', '7f78f06d2d1262a0a222ca9834b15d9d'),
+(5, '012398120938', 'imam', 'imam.digmi@gmail.com', '08970008875', 'jogja', 'imam', 'eaccb8ea6090a40a98aa28c071810371');
 
 -- --------------------------------------------------------
 
@@ -188,10 +177,7 @@ CREATE TABLE `supir` (
 --
 
 INSERT INTO `supir` (`id_supir`, `nama`, `telp`, `alamat`, `status`) VALUES
-(3, 'Bambang', '082221347788', 'Janti', '0'),
-(4, 'Parto', '08222134489', 'Maguwo', '0'),
-(5, 'Lee Min Hoo', '082221213498', 'Gowok', '0'),
-(6, 'Anang', '085221040180', 'Seturan', '0');
+(2, 'imam', '08970008875', 'jogja', '1');
 
 -- --------------------------------------------------------
 
@@ -221,15 +207,14 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `id_pelanggan`, `id_mobil`, `tgl_sewa`, `tgl_ambil`, `tgl_kembali`, `lama`, `total_harga`, `status`, `jaminan`, `denda`, `jatuh_tempo`, `konfirmasi`, `pembatalan`) VALUES
-(23, 3, 6, '2017-02-01 19:00:00', '2017-02-01 19:00:00', '2017-02-03 19:00:00', 1, 280000, '1', 'STNK', 840000, '2017-02-02 22:00:00', '1', '0'),
-(24, 3, 5, '2017-02-02 21:00:00', '2017-02-02 21:00:00', '2017-02-03 22:00:00', 1, 280000, '1', 'STNK', 35000, '2017-02-03 00:00:00', '1', '0'),
-(27, 7, 11, '2017-02-03 15:00:00', '2017-02-03 15:00:00', '2017-02-05 19:00:00', 2, 400000, '1', 'STNK', 140000, '2017-02-03 18:00:00', '1', '0'),
-(28, 7, 5, '2017-02-03 15:00:00', '2017-02-04 12:00:00', NULL, 1, 250000, '0', 'STNK', NULL, '2017-02-03 18:00:00', '1', '0'),
-(29, 3, 6, '2017-02-04 14:00:00', NULL, NULL, 1, 280000, '0', 'STNK', NULL, '2017-02-04 17:00:00', '1', '0'),
-(30, 3, 7, '2017-02-04 14:00:00', NULL, NULL, 1, 250000, '0', 'STNK', NULL, '2017-02-04 17:00:00', '1', '0'),
-(31, 3, 8, '2017-02-04 22:00:00', NULL, NULL, 1, 200000, '0', 'STNK', NULL, '2017-02-05 01:00:00', '0', '0'),
-(32, 3, 9, '2017-02-05 00:00:00', NULL, NULL, 1, 200000, '0', 'STNK', NULL, '2017-02-05 03:00:00', '0', '0'),
-(33, 3, 9, '2017-02-05 00:00:00', NULL, NULL, 1, 200000, '0', 'STNK', NULL, '2017-02-05 03:00:00', '0', '0');
+(11, 4, 1, '2017-01-12 22:00:00', '2017-01-15 23:00:00', '2017-01-16 02:00:00', 1, 930000, '1', 'STNK', 105000, '2017-01-16 23:26:54', '1', '0'),
+(12, 4, 2, '2017-01-16 23:26:54', NULL, NULL, 1, 250000, '0', 'STNK', NULL, '2017-01-16 23:30:13', '0', '0'),
+(13, 4, 3, '2017-01-16 23:26:54', NULL, NULL, 1, 100000, '0', 'STNK', NULL, '2017-01-16 23:30:32', '0', '0'),
+(14, 4, 4, '2017-01-16 23:26:54', NULL, NULL, 1, 150000, '0', 'STNK', NULL, '2017-01-16 23:54:53', '0', '0'),
+(15, 4, 4, '2017-01-16 23:26:54', NULL, NULL, 1, 150000, '0', 'STNK', NULL, '2017-01-16 23:54:53', '0', '0'),
+(16, 4, 4, '2017-01-16 23:26:54', NULL, NULL, 1, 150000, '0', 'STNK', NULL, '2017-01-16 23:54:53', '0', '0'),
+(17, 4, 2, '2017-01-16 23:26:54', NULL, NULL, 1, 250000, '0', 'STNK', NULL, '2017-01-16 23:30:13', '0', '0'),
+(18, 4, 1, '2017-01-16 23:26:54', NULL, NULL, 1, 930000, '0', 'STNK', NULL, '2017-01-16 23:26:54', '1', '0');
 
 --
 -- Indexes for dumped tables
@@ -302,37 +287,37 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
-  MODIFY `id_jenis` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_jenis` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `mobil`
 --
 ALTER TABLE `mobil`
-  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `supir`
 --
 ALTER TABLE `supir`
-  MODIFY `id_supir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_supir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- Constraints for dumped tables
 --

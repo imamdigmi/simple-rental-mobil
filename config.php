@@ -4,8 +4,8 @@ $now = date("Y-m-d H:00:00");
 /**
  * Database connection setup
  */
- // if (!$connection = new Mysqli("localhost", "root", "idiot", "mobil")) {
-if (!$connection = new Mysqli("mysql.idhostinger.com", "u502153432_mobil", "calysta", "u502153432_mobil")) {
+ if (!$connection = new Mysqli("localhost", "root", "", "mobil")) {
+// if (!$connection = new Mysqli("mysql.idhostinger.com", "u502153432_mobil", "calysta", "u502153432_mobil")) {
   echo "<h3>ERROR: Koneksi database gagal!</h3>";
 }
 /**
@@ -34,6 +34,7 @@ function page($page) {
 function adminPage($page) {
   return "page/" . $page . ".php";
 }
+
 /**
  * Alert notification
  * @param message, redirection
@@ -44,6 +45,14 @@ function alert($msg, $to = null) {
   return "<script>alert('{$msg}');window.location='{$to}';</script>";
 }
 
+// Update otomatis
+$query = $connection->query("SELECT a.id_mobil, (DATEDIFF(NOW(), a.tgl_ambil)) AS tgl FROM transaksi a WHERE a.status='0'");
+while ($data = $query->fetch_assoc()) {
+  if ($data["tgl"] >= 0) {
+    $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]");
+  }
+}
+
 // Pembatalan otomatis
 $query = $connection->query("SELECT a.jatuh_tempo, a.id_transaksi, a.id_mobil, (TIMESTAMPDIFF(HOUR, a.tgl_sewa, NOW())) AS tempo FROM transaksi a WHERE a.konfirmasi='0'");
 while ($data = $query->fetch_assoc()) {
@@ -52,7 +61,7 @@ while ($data = $query->fetch_assoc()) {
     $connection->query("UPDATE mobil SET status='1' WHERE id_mobil=$data[id_mobil]");
     $q = $connection->query("SELECT id_supir FROM detail_transaksi WHERE id_transaksi=$data[id_transaksi]");
     if ($q->num_rows) {
-      @$id = $query->fetch_assoc();
+      $id = $query->fetch_assoc();
       @$connection->query("UPDATE supir SET status='1' WHERE id_supir=".$id["id_supir"]);
       @$connection->query("DELETE FROM detail_transaksi WHERE id_transaksi=$data[id_transaksi]");
     }

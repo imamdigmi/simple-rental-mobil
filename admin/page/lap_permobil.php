@@ -64,7 +64,8 @@
                 <tr>
                     <td><?=$no++?></td>
 										<td><?=$r['nama']?></td>
-										<td><?=$r['harga']?></td>
+										<td>Rp.<?=number_format($r['harga'])?></td>
+										
                 </tr>
                 <?php endwhile ?>
             </tbody>

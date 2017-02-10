@@ -4,7 +4,7 @@ $now = date("Y-m-d H:00:00");
 /**
  * Database connection setup
  */
- if (!$connection = new Mysqli("localhost", "root", "", "mobil")) {
+ if (!$connection = new Mysqli("localhost", "root", "idiot", "mobil")) {
 // if (!$connection = new Mysqli("mysql.idhostinger.com", "u502153432_mobil", "calysta", "u502153432_mobil")) {
   echo "<h3>ERROR: Koneksi database gagal!</h3>";
 }

@@ -66,8 +66,8 @@ if (!isset($_SESSION["pelanggan"])) {
                                 <td>Rp.<?=number_format($data['total_harga'])?>,-</td>
                                 <td><?=$data['lama']?> Hari</td>
                                 <td><?=$data['jaminan']?></td>
-                                <td><?=$data['tgl_sewa']?></td>
-                                <td><?=$data['jatuh_tempo']?></td>
+                                <td><?=date("d-m-Y H:i:s", strtotime($data['tgl_sewa']))?></td>
+                                <td><?=date("d-m-Y H:i:s", strtotime($data['jatuh_tempo']))?></td>
                                 <td class="hidden-print">
                                   <div class="btn-group">
                                       <?php if (!$data['konfirmasi'] AND !$data["pembatalan"]): ?>

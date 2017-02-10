@@ -32,15 +32,15 @@ if (!isset($_SESSION["pelanggan"])) {
 								</tr>
 								<tr>
 									<th>Tanggal Ambil</th>
-									<td>: <?=($r['tgl_ambil']) ? $r['tgl_ambil'] : "<b>Belum</b>"?></td>
+									<td>: <?=($r['tgl_ambil']) ? date("d-m-Y H:i:s", strtotime($r['tgl_ambil'])) : "<b>Belum</b>"?></td>
 								</tr>
 								<tr>
 									<th>Tanggal Kembali</th>
-									<td>: <?=($r['tgl_kembali']) ? $r['tgl_kembali'] : "<b>Belum</b>"?></td>
+									<td>: <?=($r['tgl_kembali']) ? date("d-m-Y H:i:s", strtotime($r['tgl_kembali'])) : "<b>Belum</b>"?></td>
 								</tr>
 								<tr>
 									<th>Jatuh Tempo</th>
-									<td>: <?=$r['jatuh_tempo']?></td>
+									<td>: <?=date("d-m-Y H:i:s", strtotime($r['jatuh_tempo']))?></td>
 								</tr>
 								<tr>
 									<th>Konfirmasi</th>

@@ -13,10 +13,10 @@ if ($sql->num_rows) {
     $sql = "SELECT
       (SELECT ((
         DATEDIFF(ADDDATE('$tgl_ambil', INTERVAL $_POST[lama] DAY), ADDDATE('$d[tgl_ambil]', INTERVAL $d[lama] DAY))
-      )) FROM transaksi WHERE id_mobil=$d[id_mobil]) AS a,
+      )) FROM transaksi WHERE id_mobil=$d[id_mobil] LIMIT 1) AS a,
       (SELECT ((
         DATEDIFF(ADDDATE('$d[tgl_ambil]', INTERVAL $d[lama] DAY), ADDDATE('$tgl_ambil', INTERVAL $_POST[lama] DAY))
-      )) FROM transaksi WHERE id_mobil=$d[id_mobil]) AS b";
+      )) FROM transaksi WHERE id_mobil=$d[id_mobil] LIMIT 1) AS b";
     $s = $connection->query($sql);
     $a = $s->fetch_assoc();
     // echo $a["a"]." - ".$a["b"];

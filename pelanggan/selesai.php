@@ -7,37 +7,43 @@ if (!isset($_SESSION["pelanggan"])) {
 $tgl_ambil   = $_POST["thn"]."-".$_POST["bln"]."-".$_POST["tgl"]." ".date("H:i:s");
 
 // Validasi
-// $sql = $connection->query("SELECT id_mobil, tgl_ambil, lama FROM transaksi WHERE id_mobil = $_POST[id_mobil] AND status='0'");
-// if ($sql->num_rows) {
-//     $d = $sql->fetch_assoc();
-//     echo "SELECT ((DATEDIFF(ADDDATE('$tgl_ambil', INTERVAL $_POST[lama] DAY), ADDDATE('$d[tgl_ambil]', INTERVAL $d[lama] DAY)))) AS t FROM transaksi WHERE id_mobil=$d[id_mobil]";
-//     $s = $connection->query("SELECT ((DATEDIFF(ADDDATE('$tgl_ambil', INTERVAL $_POST[lama] DAY), ADDDATE('$d[tgl_ambil]', INTERVAL $d[lama] DAY)))) AS t FROM transaksi WHERE id_mobil=$d[id_mobil]");
-//     $a = $s->fetch_assoc();
-//     if ($a["t"] >= 1 AND $a["t"] >= 0) {
-//         echo alert("Maaf, mobil yang anda sewa sudah di pesan!");
-//         exit;
-//     }
-// }
-// die();
-// $query = $connection->query("SELECT * FROM mobil WHERE id_mobil=$_POST[id_mobil]");
-// $data  = $query->fetch_assoc();
-//
-// $hargasupir  = 0;
-// $id          = $_SESSION["pelanggan"]["id"]; // id user yang sedang login
-// $jatuhtempo  = date('Y-m-d H:00:00', strtotime('+3 hours')); //jam skrg + 3 jam
-// $totalbayar  = $hargasupir + ($data["harga"] * $_POST["lama"]);
-// if ($_POST["status"]) $hargasupir = (30000 * $_POST["lama"]);
-//
-// $connection->query("INSERT INTO transaksi VALUES (NULL, $id, $_POST[id_mobil], '$now', '$tgl_ambil', NULL, $_POST[lama], $totalbayar, '0', '$_POST[jaminan]', NULL, '$jatuhtempo', '0', '0')");
-// $idtransaksi = $connection->insert_id;
-//
-// if ($_POST["status"]) {
-//     $hargasupir = 30000;
-//     $supir      = $connection->query("SELECT id_supir FROM supir WHERE status='1' LIMIT 1");
-//     $s          = $supir->fetch_assoc();
-//     $connection->query("INSERT INTO detail_transaksi VALUES (NULL, $idtransaksi, $s[id_supir], $hargasupir)");
-//     $connection->query("UPDATE supir SET status='0' WHERE id_supir=$s[id_supir]");
-// }
+$sql = $connection->query("SELECT id_mobil, tgl_ambil, lama FROM transaksi WHERE id_mobil = $_POST[id_mobil] AND status='0'");
+if ($sql->num_rows) {
+    $d = $sql->fetch_assoc();
+    $sql = "SELECT
+      (SELECT ((
+        DATEDIFF(ADDDATE('$tgl_ambil', INTERVAL $_POST[lama] DAY), ADDDATE('$d[tgl_ambil]', INTERVAL $d[lama] DAY))
+      )) FROM transaksi WHERE id_mobil=$d[id_mobil]) AS a,
+      (SELECT ((
+        DATEDIFF(ADDDATE('$d[tgl_ambil]', INTERVAL $d[lama] DAY), ADDDATE('$tgl_ambil', INTERVAL $_POST[lama] DAY))
+      )) FROM transaksi WHERE id_mobil=$d[id_mobil]) AS b";
+    $s = $connection->query($sql);
+    $a = $s->fetch_assoc();
+    // echo $a["a"]." - ".$a["b"];
+    if ($a["a"] == 0 AND $a["b"] == 0) {
+        echo alert("Maaf, mobil yang anda sewa sudah di pesan!");
+        exit;
+    }
+}
+$query = $connection->query("SELECT * FROM mobil WHERE id_mobil=$_POST[id_mobil]");
+$data  = $query->fetch_assoc();
+
+$hargasupir  = 0;
+$id          = $_SESSION["pelanggan"]["id"]; // id user yang sedang login
+$jatuhtempo  = date('Y-m-d H:00:00', strtotime('+3 hours')); //jam skrg + 3 jam
+$totalbayar  = $hargasupir + ($data["harga"] * $_POST["lama"]);
+if ($_POST["status"]) $hargasupir = (30000 * $_POST["lama"]);
+
+$connection->query("INSERT INTO transaksi VALUES (NULL, $id, $_POST[id_mobil], '$now', '$tgl_ambil', NULL, $_POST[lama], $totalbayar, '0', '$_POST[jaminan]', NULL, '$jatuhtempo', '0', '0')");
+$idtransaksi = $connection->insert_id;
+
+if ($_POST["status"]) {
+    $hargasupir = 30000;
+    $supir      = $connection->query("SELECT id_supir FROM supir WHERE status='1' LIMIT 1");
+    $s          = $supir->fetch_assoc();
+    $connection->query("INSERT INTO detail_transaksi VALUES (NULL, $idtransaksi, $s[id_supir], $hargasupir)");
+    $connection->query("UPDATE supir SET status='0' WHERE id_supir=$s[id_supir]");
+}
 ?>
 
 <div class="panel panel-info">

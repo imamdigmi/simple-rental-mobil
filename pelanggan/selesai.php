@@ -7,7 +7,7 @@ if (!isset($_SESSION["pelanggan"])) {
 $tgl_ambil   = $_POST["thn"]."-".$_POST["bln"]."-".$_POST["tgl"]." ".date("H:i:s");
 
 // Validasi
-$sql = $connection->query("SELECT id_mobil, tgl_ambil, lama FROM transaksi WHERE id_mobil = $_POST[id_mobil] AND status='0'");
+$sql = $connection->query("SELECT a.id_mobil, a.tgl_ambil, a.lama FROM transaksi a WHERE a.id_mobil=$_POST[id_mobil] AND a.status='0'");
 if ($sql->num_rows) {
     $d = $sql->fetch_assoc();
     $sql = "SELECT
@@ -19,7 +19,6 @@ if ($sql->num_rows) {
       )) FROM transaksi WHERE id_mobil=$d[id_mobil] LIMIT 1) AS b";
     $s = $connection->query($sql);
     $a = $s->fetch_assoc();
-    // echo $a["a"]." - ".$a["b"];
     if ($a["a"] == 0 AND $a["b"] == 0) {
         echo alert("Maaf, mobil yang anda sewa sudah di pesan!");
         exit;
@@ -42,7 +41,6 @@ if ($_POST["status"]) {
     $supir      = $connection->query("SELECT id_supir FROM supir WHERE status='1' LIMIT 1");
     $s          = $supir->fetch_assoc();
     $connection->query("INSERT INTO detail_transaksi VALUES (NULL, $idtransaksi, $s[id_supir], $hargasupir)");
-    $connection->query("UPDATE supir SET status='0' WHERE id_supir=$s[id_supir]");
 }
 ?>
 

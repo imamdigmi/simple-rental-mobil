@@ -110,8 +110,8 @@ if (!isset($_SESSION["pelanggan"])) {
                             <tr>
                                 <td><?=$no++?></td>
                                 <td><?=$data['jaminan']?></td>
-                                <td><?=$data['tgl_ambil']?></td>
-                                <td><?=$data['tgl_kembali']?></td>
+                                <td><?=date("d-m-Y H:i:s", strtotime($data['tgl_ambil']))?></td>
+                                <td><?=date("d-m-Y H:i:s", strtotime($data['tgl_kembali']))?></td>
                                 <td>Rp.<?=number_format($data['total_harga'])?>,-</td>
                                 <td>Rp.<?=number_format($data['denda'])?>,-</td>
                                 <td>

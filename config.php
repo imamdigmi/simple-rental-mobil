@@ -46,10 +46,14 @@ function alert($msg, $to = null) {
 }
 
 // Update otomatis
-$query = $connection->query("SELECT a.id_mobil, (DATEDIFF(NOW(), a.tgl_ambil)) AS tgl FROM transaksi a WHERE a.status='0'");
+$query = $connection->query("SELECT a.id_mobil, a.id_transaksi, (DATEDIFF(NOW(), a.tgl_ambil)) AS tgl FROM transaksi a WHERE a.status='0'");
 while ($data = $query->fetch_assoc()) {
   if ($data["tgl"] >= 0) {
     $connection->query("UPDATE mobil SET status='0' WHERE id_mobil=$data[id_mobil]");
+    $q = $connection->query("SELECT id_supir FROM detail_transaksi WHERE id_transaksi=$data[id_transaksi]");
+    if ($q->num_rows) {
+      $connection->query("UPDATE supir SET status='0' WHERE id_supir=$data[id_supir]");
+    }
   }
 }
 

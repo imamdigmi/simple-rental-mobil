@@ -30,7 +30,7 @@ $data  = $query->fetch_assoc();
 
 $hargasupir  = 0;
 $id          = $_SESSION["pelanggan"]["id"]; // id user yang sedang login
-$jatuhtempo  = date('Y-m-d H:00:00', strtotime('+3 hours')); //jam skrg + 3 jam
+$jatuhtempo  = date('Y-m-d H:i:s', strtotime('+3 hours')); //jam skrg + 3 jam
 $totalbayar  = $hargasupir + ($data["harga"] * $_POST["lama"]);
 if ($_POST["status"]) $hargasupir = (30000 * $_POST["lama"]);
 

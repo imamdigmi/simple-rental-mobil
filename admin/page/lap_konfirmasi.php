@@ -27,7 +27,7 @@
                         <tr>
                             <td><?=$no++?></td>
                             <td><?=$row['nama']?></td>
-                            <td><?=$row['tgl_sewa']?></td>
+                            <td><?=date("d-m-Y H:i:s", strtotime($row['tgl_sewa']))?></td>
                             <td><?=$row['total_harga']?></td>
                             <td class="hidden-print">
                               <a  href="../assets/img/bukti/<?=$row['bukti']?>" class="btn btn-info btn-xs fancybox">Lihat Bukti</a>

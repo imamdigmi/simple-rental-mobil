@@ -30,8 +30,8 @@
 											<tr>
 													<td><?=$no++?></td>
 													<td><?=$row['nama']?></td>
-													<td><?=$row['tgl_ambil']?></td>
-													<td><?=$row['tgl_kembali']?></td>
+													<td><?=date("d-m-Y H:i:s", strtotime($row['tgl_ambil']))?></td>
+													<td><?=date("d-m-Y H:i:s", strtotime($row['tgl_kembali']))?></td>
 													<td><?=$row['terlambat']?> jam</td>
 													<td>Rp.<?=number_format($row['total_harga'])?>,-</td>
 													<td>Rp.<?=number_format($row['denda'])?>,-</td>

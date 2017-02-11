@@ -28,7 +28,7 @@ if (!isset($_SESSION["pelanggan"])) {
 								</tr>
 								<tr>
 									<th>Tanggal Sewa</th>
-									<td>: <?=$r['tgl_sewa']?></td>
+									<td>: <?=date("d-m-Y H:i:s", strtotime($row['tgl_sewa']))?></td>
 								</tr>
 								<tr>
 									<th>Tanggal Ambil</th>

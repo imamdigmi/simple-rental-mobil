@@ -53,9 +53,9 @@ if (isset($_GET["action"])) {
 												<td><?=$row['nama']?></td>
 												<td><?=$row['nama_mobil']?></td>
 												<td><?=$row['no_mobil']?></td>
-												<td><?=$row['tgl_sewa']?></td>
-												<td><?=($row['tgl_ambil']) ? $row['tgl_ambil'] : "<b>Belum Diambil</b>" ?></td>
-												<td><?=($row['tgl_kembali']) ? $row['tgl_kembali'] : "<b>Belum Dikembalikan</b>" ?></td>
+												<td><?=date("d-m-Y H:i:s", strtotime($row['tgl_sewa']))?></td>
+												<td><?=($row['tgl_ambil']) ? date("d-m-Y H:i:s", strtotime($row['tgl_ambil'])) : "<b>Belum Diambil</b>" ?></td>
+												<td><?=($row['tgl_kembali']) ? date("d-m-Y H:i:s", strtotime($row['tgl_kembali'])) : "<b>Belum Dikembalikan</b>" ?></td>
 												<td><?=$row['lama']?> Hari</td>
 												<td>Rp.<?=number_format($row['total_harga'])?>,-</td>
 												<td class="hidden-print">

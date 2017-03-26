@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4deb1
+-- version 4.6.6
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jan 16, 2017 at 02:30 AM
--- Server version: 5.7.16-0ubuntu0.16.10.1
--- PHP Version: 7.0.13-0ubuntu0.16.10.1
+-- Host: localhost
+-- Generation Time: Mar 26, 2017 at 12:28 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 7.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `mobil`
 --
-CREATE DATABASE IF NOT EXISTS `mobil` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `mobil`;
 
 -- --------------------------------------------------------
 
@@ -58,14 +56,6 @@ CREATE TABLE `detail_transaksi` (
   `jasa_supir` int(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `detail_transaksi`
---
-
-INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_supir`, `jasa_supir`) VALUES
-(4, 7, 2, 30000),
-(5, 11, 2, 30000);
-
 -- --------------------------------------------------------
 
 --
@@ -76,15 +66,6 @@ CREATE TABLE `jenis` (
   `id_jenis` int(4) NOT NULL,
   `nama` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `jenis`
---
-
-INSERT INTO `jenis` (`id_jenis`, `nama`) VALUES
-(3, 'Sedan'),
-(4, 'Pick Up'),
-(5, 'Jeep');
 
 -- --------------------------------------------------------
 
@@ -97,13 +78,6 @@ CREATE TABLE `konfirmasi` (
   `id_transaksi` int(11) NOT NULL,
   `bukti` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `konfirmasi`
---
-
-INSERT INTO `konfirmasi` (`id_konfirmasi`, `id_transaksi`, `bukti`) VALUES
-(2, 11, '415012017235555.png');
 
 -- --------------------------------------------------------
 
@@ -122,17 +96,6 @@ CREATE TABLE `mobil` (
   `status` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `mobil`
---
-
-INSERT INTO `mobil` (`id_mobil`, `id_jenis`, `no_mobil`, `merk`, `nama_mobil`, `gambar`, `harga`, `status`) VALUES
-(1, 3, 'Sedan', 'Sedan Lagi', 'Sedan Juga', '15012017231222.png', 900000, '1'),
-(2, 4, 'ab 3355 yk', 'hoon', 'haha', '15012017231548.png', 250000, '0'),
-(3, 5, 'ab 1717 bh', 'yam', 'yuhu', '15012017231638.png', 100000, '0'),
-(4, 4, 'ab 1768 wk', 'jjjj', 'yii', '15012017231736.png', 150000, '0'),
-(5, 3, 'ab 6767 sd', 'hon', 'hhhjh', '15012017231817.png', 200000, '1');
-
 -- --------------------------------------------------------
 
 --
@@ -150,14 +113,6 @@ CREATE TABLE `pelanggan` (
   `password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `pelanggan`
---
-
-INSERT INTO `pelanggan` (`id_pelanggan`, `no_ktp`, `nama`, `email`, `no_telp`, `alamat`, `username`, `password`) VALUES
-(4, '09810237127', 'pelanggan', 'pelanggan@gmail.com', '08970008875', 'jogja', 'pelanggan', '7f78f06d2d1262a0a222ca9834b15d9d'),
-(5, '012398120938', 'imam', 'imam.digmi@gmail.com', '08970008875', 'jogja', 'imam', 'eaccb8ea6090a40a98aa28c071810371');
-
 -- --------------------------------------------------------
 
 --
@@ -171,13 +126,6 @@ CREATE TABLE `supir` (
   `alamat` varchar(50) NOT NULL,
   `status` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `supir`
---
-
-INSERT INTO `supir` (`id_supir`, `nama`, `telp`, `alamat`, `status`) VALUES
-(2, 'imam', '08970008875', 'jogja', '1');
 
 -- --------------------------------------------------------
 
@@ -201,20 +149,6 @@ CREATE TABLE `transaksi` (
   `konfirmasi` enum('0','1') DEFAULT NULL,
   `pembatalan` enum('0','1') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `transaksi`
---
-
-INSERT INTO `transaksi` (`id_transaksi`, `id_pelanggan`, `id_mobil`, `tgl_sewa`, `tgl_ambil`, `tgl_kembali`, `lama`, `total_harga`, `status`, `jaminan`, `denda`, `jatuh_tempo`, `konfirmasi`, `pembatalan`) VALUES
-(11, 4, 1, '2017-01-12 22:00:00', '2017-01-15 23:00:00', '2017-01-16 02:00:00', 1, 930000, '1', 'STNK', 105000, '2017-01-16 23:26:54', '1', '0'),
-(12, 4, 2, '2017-01-16 23:26:54', NULL, NULL, 1, 250000, '0', 'STNK', NULL, '2017-01-16 23:30:13', '0', '0'),
-(13, 4, 3, '2017-01-16 23:26:54', NULL, NULL, 1, 100000, '0', 'STNK', NULL, '2017-01-16 23:30:32', '0', '0'),
-(14, 4, 4, '2017-01-16 23:26:54', NULL, NULL, 1, 150000, '0', 'STNK', NULL, '2017-01-16 23:54:53', '0', '0'),
-(15, 4, 4, '2017-01-16 23:26:54', NULL, NULL, 1, 150000, '0', 'STNK', NULL, '2017-01-16 23:54:53', '0', '0'),
-(16, 4, 4, '2017-01-16 23:26:54', NULL, NULL, 1, 150000, '0', 'STNK', NULL, '2017-01-16 23:54:53', '0', '0'),
-(17, 4, 2, '2017-01-16 23:26:54', NULL, NULL, 1, 250000, '0', 'STNK', NULL, '2017-01-16 23:30:13', '0', '0'),
-(18, 4, 1, '2017-01-16 23:26:54', NULL, NULL, 1, 930000, '0', 'STNK', NULL, '2017-01-16 23:26:54', '1', '0');
 
 --
 -- Indexes for dumped tables
@@ -287,37 +221,37 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
-  MODIFY `id_jenis` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_jenis` int(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_konfirmasi` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `mobil`
 --
 ALTER TABLE `mobil`
-  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_mobil` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `supir`
 --
 ALTER TABLE `supir`
-  MODIFY `id_supir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_supir` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --

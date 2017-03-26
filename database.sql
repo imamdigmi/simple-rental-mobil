@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 26, 2017 at 12:28 PM
+-- Generation Time: Mar 26, 2017 at 12:31 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.2
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mobil`
 --
+CREATE DATABASE IF NOT EXISTS `mobil` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `mobil`;
 
 -- --------------------------------------------------------
 
